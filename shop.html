@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop – Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    /* HERO */
+    .shop-hero {
+      padding: 64px 60px 72px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .shop-hero .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .shop-hero .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--white);
+    }
+    .shop-hero .hero-eyebrow span {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(245,245,245,0.5);
+    }
+    .shop-hero h1 {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 52px; line-height: 1.1;
+      color: var(--white); margin-bottom: 20px; letter-spacing: -0.5px;
+    }
+    .shop-hero p { font-size: 13px; color: rgba(245,245,245,0.65); line-height: 1.8; max-width: 520px; }
+
+    /* SEARCH + FILTER BAR */
+    .controls-bar {
+      padding: 20px 60px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 320px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 10px 14px 10px 36px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: rgba(245, 245, 245, 0.25);
+    }
+
+    .search-input::placeholder {
+      color: rgba(245, 245, 245, 0.25);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.35;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(245, 245, 245, 0.55);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .filter-btn.active {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .sort-select {
+      margin-left: auto;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      padding: 10px 14px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* MAIN */
+    .shop-main {
+      padding: 32px 60px 60px;
+    }
+
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .results-count {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.45);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* PRODUCT CARD */
+    .product-card {
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      padding: 16px;
+      display: block;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      z-index: 2;
+    }
+
+    .product-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+
+    .overlay-text {
+      color: var(--white);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.6);
+      padding-bottom: 3px;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .product-roast {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(10, 10, 10, 0.5);
+    }
+
+    .roast-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .roast-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.15);
+    }
+
+    .roast-dot.filled {
+      background: rgba(10, 10, 10, 0.55);
+    }
+
+    .product-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .product-notes {
+      font-size: 10px;
+      color: rgba(10, 10, 10, 0.55);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .product-price span {
+      font-size: 10px;
+      font-weight: 400;
+      color: rgba(10, 10, 10, 0.4);
+    }
+
+    .add-btn {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-btn:hover {
+      background: var(--black-light);
+    }
+
+    .add-btn.featured {
+      background: #5a3010;
+    }
+
+    /* NO RESULTS */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 40px;
+      display: none;
+    }
+
+    .no-results p {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.35);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="wholesale.html">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="auth.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="shop-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>></span>Shop
+    </div>
+    <h1>Shop Our Roasts.</h1>
+    <p>Order by the bag or by the case. Every bean roasted fresh within 48 hours of shipping.</p>
+  </div>
+
+  <!-- SEARCH + FILTER -->
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="2">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.35-4.35" />
+      </svg>
+      <input class="search-input" type="text" id="search-input" placeholder="Search roasts..." oninput="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn" onclick="setFilter('light', this)">Light</button>
+      <button class="filter-btn" onclick="setFilter('medium', this)">Medium</button>
+      <button class="filter-btn" onclick="setFilter('dark', this)">Dark</button>
+      <button class="filter-btn" onclick="setFilter('blend', this)">Blend</button>
+      <button class="filter-btn" onclick="setFilter('decaf', this)">Decaf</button>
+    </div>
+    <select class="sort-select" id="sort-select" onchange="applyFilters()">
+      <option value="featured">Sort: Featured</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="name-asc">Name: A–Z</option>
+    </select>
+  </div>
+
+  <!-- PRODUCTS -->
+  <main class="shop-main">
+    <div class="results-bar">
+      <p class="results-count" id="results-count">Showing 6 products</p>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+
+      <div class="product-card" data-category="light" data-name="Morning Bloom" data-price="48"
+        onclick="window.location='product-morning-bloom.html'">
+        <div class="product-img-wrap">
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">Light Roast</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot"></div>
+              <div class="roast-dot"></div>
+            </div>
+          </div>
+          <div class="product-name">Morning Bloom</div>
+          <div class="product-notes">Bright citrus, floral finish, light body. A crowd-pleaser for morning rushes.</div>
+          <div class="product-footer">
+            <div class="product-price">$48 <span>/ 5lb bag</span></div>
+            <button class="add-btn"
+              onclick="event.stopPropagation(); addToCart(this, 'Morning Bloom', 'Light Roast', 48)">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="medium" data-name="Everyday Gold" data-price="52"
+        onclick="window.location='product-everyday-gold.html'">
+        <div class="product-img-wrap">
+          <div class="product-badge">&#9733 Best Seller</div>
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">Medium Roast</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot"></div>
+            </div>
+          </div>
+          <div class="product-name">Everyday Gold</div>
+          <div class="product-notes">Smooth caramel, toasted almond, balanced body. Our top seller for cafe menus.</div>
+          <div class="product-footer">
+            <div class="product-price">$52 <span>/ 5lb bag</span></div>
+            <button class="add-btn featured"
+              onclick="event.stopPropagation(); addToCart(this, 'Everyday Gold', 'Medium Roast', 52)">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="dark" data-name="Midnight Press" data-price="52"
+        onclick="window.location='product-midnight-press.html'">
+        <div class="product-img-wrap">
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">Dark Roast</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+            </div>
+          </div>
+          <div class="product-name">Midnight Press</div>
+          <div class="product-notes">Bold dark chocolate, smoky finish, full body. Perfect for espresso-based drinks.
+          </div>
+          <div class="product-footer">
+            <div class="product-price">$52 <span>/ 5lb bag</span></div>
+            <button class="add-btn"
+              onclick="event.stopPropagation(); addToCart(this, 'Midnight Press', 'Dark Roast', 52)">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="blend" data-name="Cornerstone Blend" data-price="55"
+        onclick="window.location='product-cornerstone-blend.html'">
+        <div class="product-img-wrap">
+          <div class="product-badge">House Staple</div>
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">House Blend</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot"></div>
+            </div>
+          </div>
+          <div class="product-name">Cornerstone Blend</div>
+          <div class="product-notes">Our signature. Brown sugar, walnut, smooth finish. Works across every brew method.
+          </div>
+          <div class="product-footer">
+            <div class="product-price">$55 <span>/ 5lb bag</span></div>
+            <button class="add-btn"
+              onclick="event.stopPropagation(); addToCart(this, 'Cornerstone Blend', 'House Blend', 55)">Order
+              Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="dark" data-name="Founder's Reserve" data-price="56"
+        onclick="window.location='product-founders-reserve.html'">
+        <div class="product-img-wrap">
+          <div class="product-badge">Limited Release</div>
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">Medium-Dark</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+            </div>
+          </div>
+          <div class="product-name">Founder's Reserve</div>
+          <div class="product-notes">Blackcurrant, dark cherry, wine-like finish. Our most complex single origin.</div>
+          <div class="product-footer">
+            <div class="product-price">$56 <span>/ 5lb bag</span></div>
+            <button class="add-btn"
+              onclick="event.stopPropagation(); addToCart(this, 'Founder\'s Reserve', 'Medium-Dark Roast', 56)">Order
+              Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="decaf" data-name="High Road Decaf" data-price="56"
+        onclick="window.location='product-high-road-decaf.html'">
+        <div class="product-img-wrap">
+          <div class="product-badge">Decaf Done Right</div>
+          <img src="images/coffee-mockup.png" alt="Coffee Bag">
+          <div class="product-overlay"><span class="overlay-text">View Details</span></div>
+        </div>
+        <div class="product-info">
+          <div class="product-top">
+            <div class="product-roast">Medium · Decaf</div>
+            <div class="roast-dots">
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot filled"></div>
+              <div class="roast-dot"></div>
+            </div>
+          </div>
+          <div class="product-name">High Road Decaf</div>
+          <div class="product-notes">Cocoa, dried cherry, mellow finish. Swiss Water Process. No chemical aftertaste.
+          </div>
+          <div class="product-footer">
+            <div class="product-price">$56 <span>/ 5lb bag</span></div>
+            <button class="add-btn"
+              onclick="event.stopPropagation(); addToCart(this, 'High Road Decaf', 'Medium Decaf', 56)">Order
+              Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-results" id="no-results">
+        <p>No products match your search. Try a different filter or keyword.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="wholesale.html">Shipping & Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <script>
+    var activeFilter = 'all';
+
+    function setFilter(cat, btn) {
+      activeFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function applyFilters() {
+      var query = document.getElementById('search-input').value.trim().toLowerCase();
+      var sort = document.getElementById('sort-select').value;
+      var cards = Array.from(document.querySelectorAll('.product-card'));
+      var visible = 0;
+
+      // filter
+      cards.forEach(function (card) {
+        var name = card.dataset.name.toLowerCase();
+        var cat = card.dataset.category;
+        var matchFilter = activeFilter === 'all' || cat === activeFilter;
+        var matchSearch = query === '' || name.includes(query);
+        if (matchFilter && matchSearch) {
+          card.style.display = 'block';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // sort visible cards
+      var grid = document.getElementById('product-grid');
+      var visibleCards = cards.filter(function (c) { return c.style.display !== 'none'; });
+      visibleCards.sort(function (a, b) {
+        if (sort === 'price-asc') return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+        if (sort === 'price-desc') return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+        if (sort === 'name-asc') return a.dataset.name.localeCompare(b.dataset.name);
+        return 0;
+      });
+      visibleCards.forEach(function (c) { grid.appendChild(c); });
+
+      document.getElementById('results-count').textContent = 'Showing ' + visible + ' product' + (visible !== 1 ? 's' : '');
+      document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    function addToCart(btn, name, roast, price) {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var existing = cart.findIndex(function (i) { return i.name === name && i.size === '5lb'; });
+      if (existing !== -1) {
+        cart[existing].qty += 1;
+      } else {
+        cart.push({ name: name, roast: roast, origin: '', size: '5lb', price: price, qty: 1 });
+      }
+      localStorage.setItem('cc_cart', JSON.stringify(cart));
+      var total = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+      document.getElementById('cart-count').textContent = total;
+      btn.textContent = '✓ Added';
+      btn.style.background = '#333';
+      btn.style.color = '#f5f5f5';
+      setTimeout(function () { btn.textContent = 'Order Now'; btn.style.background = ''; btn.style.color = ''; }, 1500);
+    }
+
+    // init nav
+    (function () {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      document.getElementById('cart-count').textContent = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+      if (localStorage.getItem('cc_user')) document.getElementById('nav-profile-btn').href = 'profile.html';
+    })();
+  </script>
+</body>
+
+</html>

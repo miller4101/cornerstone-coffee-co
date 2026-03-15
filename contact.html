@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact &mdash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── CONTACT HERO ── */
+    .contact-hero {
+      padding: 64px 60px 72px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
+      max-width: 1080px;
+    }
+
+    .contact-hero-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 52px;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .contact-hero-sub {
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .contact-hero-chips {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(245, 245, 245, 0.65);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .hero-chip:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      color: var(--white);
+    }
+
+    /* Hero card */
+    .contact-hero-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px 32px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .hero-card-emoji {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .hero-card-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 26px;
+      color: var(--white);
+    }
+
+    .hero-card-desc {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 8px;
+    }
+
+    .hero-card-divider {
+      width: 100%;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 8px 0;
+    }
+
+    .hero-card-hours {
+      font-size: 11px;
+      line-height: 2;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .hero-card-hours strong {
+      color: rgba(245, 245, 245, 0.85);
+    }
+
+    /* ── SHARED SECTION ── */
+    .section-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 30px;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    /* ── CONTACT MAIN ── */
+    .contact-main {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 60px;
+      padding: 72px 60px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-intro {
+      font-size: 12px;
+      line-height: 1.9;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 40px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .detail-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .detail-value a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .detail-sub {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.4);
+    }
+
+    .social-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .social-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+    }
+
+    .social-link {
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .social-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .social-link svg {
+      fill: rgba(245, 245, 245, 0.55);
+    }
+
+    .hours-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 24px 28px;
+    }
+
+    .hours-title {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hours-row:last-child {
+      border-bottom: none;
+    }
+
+    .hours-day {
+      color: rgba(245, 245, 245, 0.7);
+    }
+
+    .hours-time {
+      color: rgba(245, 245, 245, 0.5);
+    }
+
+    .hours-closed {
+      color: rgba(245, 245, 245, 0.3);
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-form-wrap {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 36px;
+    }
+
+    .form-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 24px;
+    }
+
+    .topic-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .topic-tab {
+      padding: 9px 18px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: none;
+      color: rgba(245, 245, 245, 0.5);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .topic-tab:last-child {
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .topic-tab.active {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .topic-tab:hover:not(.active) {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(245, 245, 245, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      padding: 80px 60px;
+      background: var(--black-mid);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--black);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      text-align: left;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-arrow {
+      font-size: 18px;
+      color: rgba(245, 245, 245, 0.4);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 24px 20px;
+      font-size: 12px;
+      line-height: 1.8;
+      color: rgba(245, 245, 245, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .faq-answer.open {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="wholesale.html">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="auth.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+  <!-- CONTACT HERO -->
+  <div class="contact-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>></span>Contact
+    </div>
+    <div class="contact-hero-inner">
+      <div>
+        <h1 class="contact-hero-title">Get in <em>Touch.</em></h1>
+        <p class="contact-hero-sub">Questions about wholesale, a current order, or just want to learn more about what we
+          do — our team replies within one business day.</p>
+        <div class="contact-hero-chips">
+          <a href="#contact-form" class="hero-chip">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Send a Message
+          </a>
+          <a href="wholesale.html" class="hero-chip">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+            </svg>
+            Wholesale Inquiry
+          </a>
+          <a href="shop.html" class="hero-chip">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            Shop Roasts
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="contact-main clearfix">
+
+    <!-- LEFT: INFO -->
+    <div>
+      <div class="section-tag">— Reach Out —</div>
+      <h2 class="section-title">We'd love to <em>hear from you.</em></h2>
+      <p class="contact-intro">Whether you're a cafe owner exploring wholesale, have a question about an existing order,
+        or just want to learn more — our team is happy to help.</p>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0a0a0a"
+              stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg></div>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-value"><a href="mailto:hello@cornerstonecoffee.co">hello@cornerstonecoffee.co</a></div>
+            <div class="detail-sub">We reply within 1 business day</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0a0a0a"
+              stroke-width="2">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg></div>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-value">(555) 000-0000</div>
+            <div class="detail-sub">Mon – Fri, 9am – 5pm</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#0a0a0a"
+              stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg></div>
+          <div>
+            <div class="detail-label">1234 S Michgan Ave</div>
+            <div class="detail-value">Chicago, IL</div>
+            <div class="detail-sub">Wholesale pickup available by appointment</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-row">
+        <span class="social-label">Follow</span>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(245,245,245,0.5)">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </a>
+        <a href="#" class="social-link" aria-label="TikTok">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(245,245,245,0.5)">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="hours-card">
+        <div class="hours-title">Business Hours</div>
+        <div class="hours-row"><span class="hours-day">Monday &mdash; Friday</span><span class="hours-time">9:00am &mdash;
+            5:00pm</span></div>
+        <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00am &mdash; 2:00pm</span>
+        </div>
+        <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time hours-closed">Closed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap">
+      <div class="form-title">Send Us a Message</div>
+      <div class="form-subtitle">We'll get back to you within one business day.</div>
+
+      <div class="topic-tabs">
+        <button class="topic-tab active" onclick="selectTopic(this)">General</button>
+        <button class="topic-tab" onclick="selectTopic(this)">Wholesale</button>
+        <button class="topic-tab" onclick="selectTopic(this)">Order Issue</button>
+        <button class="topic-tab" onclick="selectTopic(this)">Other</button>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">&#10003;</div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out. Our team will get back to you within one business day.</p>
+      </div>
+
+      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="What's this about?">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell us how we can help..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          Send Message &rarr;
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-header">
+      <div class="section-tag" style="text-align:center;">— FAQ —</div>
+      <h2 class="section-title" style="text-align:center;">Common Questions</h2>
+    </div>
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What is the minimum order for wholesale?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">There is no minimum for our Starter tier. Case and bulk pricing starts at 5 bags per
+          order. We built it this way so small cafes can get started without committing to more than they need.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>How fresh is the coffee when it ships?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">Every order is roasted within 48 hours of shipping. We don't pre-roast and stock — your
+          beans go from roaster to bag to your door as quickly as possible.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I get a sample before committing?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">Absolutely. We offer a free sample pack for wholesale applicants. Fill out the wholesale
+          inquiry form and mention you'd like a sample — we'll send one out within a few days.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Do you offer custom grind options?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">Custom grind options are available for bulk orders (20+ bags). Contact us directly and
+          we'll work with you to get the right grind for your brew method.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>How long does shipping take?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">Starter orders ship in 3&mdash;5 business days. Partner orders ship in 2&mdash;3 days. Bulk orders
+          ship in 1&mdash;2 days. Partner and Bulk orders include free shipping.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What if there's an issue with my order?</span>
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">Email us with your order number and a description of the issue. We'll make it right —
+          whether that's a replacement, a refund, or a credit toward your next order.</div>
+      </div>
+
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="contact.html">Privacy Policy</a>
+        <a href="wholesale.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var qty = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+      var el = document.getElementById('cart-count');
+      if (el) el.textContent = qty;
+      if (localStorage.getItem('cc_user')) {
+        var btn = document.getElementById('nav-profile-btn');
+        if (btn) btn.href = 'profile.html';
+      }
+    })();
+  </script>
+  <script>
+    function toggleFaq(btn) {
+      var answer = btn.nextElementSibling;
+      var arrow = btn.querySelector('.faq-arrow');
+      var isOpen = answer.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-answer').forEach(function (a) { a.classList.remove('open'); });
+      document.querySelectorAll('.faq-arrow').forEach(function (a) { a.textContent = '+'; });
+      if (!isOpen) {
+        answer.classList.add('open');
+        arrow.textContent = '−';
+      }
+    }
+
+    function selectTopic(tab) {
+      // remove active class from all tabs first
+      var allTabs = document.getElementsByClassName('topic-tab');
+      for (var i = 0; i < allTabs.length; i++) {
+        allTabs[i].classList.remove('active');
+      }
+      tab.classList.add('active');
+    }
+
+    // NOTE: This simulates a form submission.
+    // To send real emails, connect to a backend or use a service like Formspree.
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      clearContactErrors();
+      var errors = [];
+
+      var firstName = document.getElementById('first-name');
+      var email = document.getElementById('email');
+      var message = document.getElementById('message');
+
+      if (!firstName || !firstName.value.trim()) { showContactError('first-name', 'First name is required'); errors.push(1); }
+      if (!email || !email.value.trim()) { showContactError('email', 'Email is required'); errors.push(1); }
+      else if (!/\S+@\S+\.\S+/.test(email.value)) { showContactError('email', 'Please enter a valid email'); errors.push(1); }
+      if (!message || !message.value.trim()) { showContactError('message', 'Message cannot be empty'); errors.push(1); }
+
+      if (errors.length > 0) return;
+
+      var btn = document.querySelector('[onclick="handleSubmit(event)"]');
+      if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+
+      setTimeout(function () {
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      }, 900);
+    }
+
+    function showContactError(id, msg) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.borderColor = '#e07070';
+      var err = document.createElement('div');
+      err.className = 'contact-field-error';
+      err.textContent = msg;
+      err.style.cssText = 'font-size:10px;color:#e07070;margin-top:5px;';
+      el.parentNode.appendChild(err);
+    }
+
+    function clearContactErrors() {
+      document.querySelectorAll('.contact-field-error').forEach(function (e) { e.remove(); });
+      document.querySelectorAll('#contact-form input, #contact-form textarea').forEach(function (e) { e.style.borderColor = ''; });
+    }
+
+  </script>
+</body>
+
+</html>

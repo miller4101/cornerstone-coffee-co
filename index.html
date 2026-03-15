@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    .page {
+      width: 100%;
+      background: var(--black);
+      overflow: hidden;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background: var(--black-light);
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .announce-bar span {
+      color: rgba(245, 245, 245, 0.75);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      white-space: nowrap;
+    }
+
+    .announce-bar span strong {
+      color: var(--white);
+    }
+
+    .announce-divider {
+      width: 1px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--black);
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 16px;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(245, 245, 245, 0.65);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nav-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .nav-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* ── HERO — full bleed, type over dark bg ── */
+    .hero {
+      background: var(--black);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 20px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .hero-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 68px;
+      color: var(--white);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .hero-sub {
+      color: rgba(245, 245, 245, 0.55);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 360px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      padding: 14px 32px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--off-white);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(245, 245, 245, 0.6);
+      padding: 14px 0;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      border: none;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.3);
+      cursor: pointer;
+    }
+
+    .hero-text {
+      padding: 80px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-image {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: var(--black-mid);
+      overflow: hidden;
+      border-left: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--black-mid);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 20px 48px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-item svg {
+      flex-shrink: 0;
+    }
+
+    .trust-item span {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.75);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .trust-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ── REVIEWS STRIP ── */
+    .reviews-strip {
+      background: var(--black-mid);
+      padding: 52px 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .reviews-strip-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .reviews-strip-stars {
+      display: flex;
+      gap: 3px;
+    }
+
+    .reviews-strip-stars span {
+      font-size: 16px;
+      color: var(--white);
+    }
+
+    .reviews-strip-count {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.5);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .review-card {
+      background: var(--black-mid);
+      padding: 28px 24px;
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+    }
+
+    .review-stars span {
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    .review-text {
+      font-size: 12px;
+      line-height: 1.75;
+      color: rgba(245, 245, 245, 0.75);
+      margin-bottom: 20px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .review-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .review-role {
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── PRODUCT FEATURE ── */
+    .product-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .product-feature.reverse {
+      direction: rtl;
+    }
+
+    /* found this trick on stack overflow, flips grid order */
+    .product-feature.reverse>* {
+      direction: ltr;
+    }
+
+    .product-feature-img {
+      background: var(--black-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      max-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-feature-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-height: 420px;
+      padding: 24px;
+    }
+
+
+    .product-img-placeholder {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .product-img-placeholder span {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.2);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .pip-light {
+      background: #d8d0b8;
+    }
+
+    .pip-medium {
+      background: #888070;
+    }
+
+    .pip-dark {
+      background: #222222;
+    }
+
+    .product-feature-body {
+      background: var(--black-mid);
+      padding: 50px 40px;
+      /* tried 52px first, looked too tall */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .product-roast-tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 12px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .product-feature-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 36px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .product-feature-notes {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.75);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .product-feature-footer {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .product-feature-price {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 22px;
+      color: var(--white);
+    }
+
+    .product-feature-price span {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.5);
+      font-weight: 400;
+    }
+
+    .btn-order {
+      background: var(--white);
+      color: var(--black);
+      padding: 12px 28px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-order:hover {
+      background: var(--white-dark);
+    }
+
+    /* ── MISSION BAND ── */
+    .mission-band {
+      background: var(--black);
+      padding: 72px 48px;
+      text-align: center;
+    }
+
+    .mission-eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.35);
+      margin-bottom: 24px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .mission-text {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 30px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.25;
+      max-width: 600px;
+      margin: 0 auto;
+      margin-bottom: 32px;
+      /* split this up so i could override easier */
+      letter-spacing: 0.5px;
+    }
+
+    .btn-mission {
+      background: transparent;
+      color: var(--white);
+      padding: 13px 32px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-mission:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* ── WHY SECTION ── */
+    .why-section {
+      background: var(--black);
+      padding: 72px 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .why-header {
+      margin-bottom: 48px;
+    }
+
+    .why-eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 12px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .why-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 38px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .why-item {
+      background: var(--black);
+      padding: 32px 28px;
+    }
+
+    .why-number {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 40px;
+      color: rgba(255, 255, 255, 0.08);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .why-item-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .why-item-body {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.75);
+      line-height: 1.8;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--black-mid);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 64px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .cta-band-eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 10px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .cta-band-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 28px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .cta-band-btns {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-cta-primary {
+      background: var(--white);
+      color: var(--black);
+      padding: 14px 28px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-cta-secondary {
+      background: transparent;
+      color: rgba(245, 245, 245, 0.75);
+      padding: 14px 28px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- ANNOUNCE BAR -->
+    <div class="announce-bar">
+      <span><strong>Free shipping</strong> on all bulk orders over $200</span>
+      <div class="announce-divider"></div>
+      <span>Roasted fresh within <strong>48 hours</strong> of every order</span>
+      <div class="announce-divider"></div>
+      <span><strong>No minimums</strong> on starter orders</span>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="nav-logo">Cornerstone Coffee Co.</div>
+      <ul class="nav-links">
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="wholesale.html">Wholesale</a></li>
+        <li><a href="our-story.html">Our Story</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="auth.html" class="nav-icon-btn" id="nav-profile-btn">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </a>
+        <a href="cart.html" class="nav-icon-btn">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+          <div class="cart-count" id="cart-count">0</div>
+        </a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text" style="z-index: 2; position: relative;">
+        <div class="hero-tag">Wholesale Coffee Partner</div>
+        <h1 class="hero-title">The Bean Behind Your Best Cup</h1>
+        <p class="hero-sub">Wholesale coffee built for small cafe owners. Consistent roasts, fair pricing, no runaround.
+        </p>
+        <div class="hero-btns">
+          <a href="shop.html" class="btn-primary">Shop Wholesale</a>
+          <a href="contact.html" class="btn-ghost">Get a Sample &rarr;</a> <!-- Right Arrow HTML Entity-->
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="images/barista.png" alt="Barista">
+      </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="rgba(245,245,245,0.75)" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        <span>Responsibly Sourced</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="rgba(245,245,245,0.75)" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        <span>48hr Roasted to Ship</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+        </svg>
+        <span>No Order Minimums</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#0a0a0a" stroke-width="1.5">
+          <polyline points="20 12 20 22 4 22 4 12" />
+          <rect x="2" y="7" width="20" height="5" />
+          <line x1="12" y1="22" x2="12" y2="7" />
+          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+        </svg>
+        <span>Free Bulk Shipping</span>
+      </div>
+    </div>
+
+    <!-- REVIEWS STRIP -->
+    <section class="reviews-strip">
+      <div class="reviews-strip-header">
+        <div class="reviews-strip-stars">
+          <span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span> <!-- Decimal Entity for Filled Star-->
+        </div>
+        <div class="reviews-strip-count">4.9 - Trusted by 120+ cafe owners</div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">
+            <span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span>
+          </div>
+          <p class="review-text">"Switching to Cornerstone was the best decision I made for my cafe. The consistency
+            order to order is something I couldn't find anywhere else."</p>
+          <div class="review-name">Jamie M.</div>
+          <div class="review-role">Owner, Maplewood Cafe</div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span>
+          </div>
+          <p class="review-text">"The wholesale pricing actually makes sense for a small operation like mine. Quality
+            beans without feeling like I need a warehouse to justify the order."</p>
+          <div class="review-name">Sofia R.</div>
+          <div class="review-role">Owner, Rosewood Roasters</div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span><span>&#9733</span> 
+          </div>
+          <p class="review-text">"My regulars noticed the difference in the first week. Cornerstone helped me find the
+            right roast profile and I haven't looked back."</p>
+          <div class="review-name">Tyler K.</div>
+          <div class="review-role">Owner, Press &amp; Pour Co.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT FEATURES -->
+
+    <!-- PRODUCT 1: Morning Bloom — image left -->
+    <div class="product-feature">
+      <div class="product-feature-img pip-light">
+        <img src="images/coffee-mockup.png" alt="Coffee Bag" style="width: 100%; height: 100%; object-fit: contain;">
+      </div>
+      <div class="product-feature-body">
+        <div class="product-roast-tag">Light Roast - $48 / 5lb</div>
+        <h2 class="product-feature-name">Morning Bloom</h2>
+        <p class="product-feature-notes">Bright citrus, floral finish, light body. A crowd-pleaser for morning rushes
+          and pour-over menus.</p>
+        <div class="product-feature-footer">
+          <div class="product-feature-price">$48 <span>/ 5lb bag</span></div>
+          <a href="shop.html" class="btn-order">Order Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2: Everyday Gold — image right -->
+    <div class="product-feature reverse">
+      <div class="product-feature-img pip-medium">
+        <img src="images/coffee-mockup.png" alt="Coffee Bag" style="width: 100%; height: 100%; object-fit: contain;">
+      </div>
+      <div class="product-feature-body">
+        <div class="product-roast-tag">Medium Roast - Best Seller - $52 / 5lb</div>
+        <h2 class="product-feature-name">Everyday Gold</h2>
+        <p class="product-feature-notes">Smooth caramel, toasted almond, balanced body. Our top seller. The one cafe
+          owners reorder without thinking twice.</p>
+        <div class="product-feature-footer">
+          <div class="product-feature-price">$52 <span>/ 5lb bag</span></div>
+          <a href="shop.html" class="btn-order">Order Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3: Midnight Press — image left -->
+    <div class="product-feature">
+      <div class="product-feature-img pip-dark">
+        <img src="images/coffee-mockup.png" alt="Coffee Bag" style="width: 100%; height: 100%; object-fit: contain;">
+      </div>
+      <div class="product-feature-body">
+        <div class="product-roast-tag">Dark Roast - $52 / 5lb</div>
+        <h2 class="product-feature-name">Midnight Press</h2>
+        <p class="product-feature-notes">Bold dark chocolate, smoky finish, full body. Built for high-volume espresso
+          bars that need a reliable base.</p>
+        <div class="product-feature-footer">
+          <div class="product-feature-price">$52 <span>/ 5lb bag</span></div>
+          <a href="shop.html" class="btn-order">Order Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSION BAND -->
+    <div class="mission-band">
+      <div class="mission-eyebrow">Our Mission</div>
+      <p class="mission-text">Brought to life from a belief that independent cafe owners deserve the same quality beans
+        as the big chains — at pricing that doesn't require a warehouse.</p>
+      <a href="our-story.html" class="btn-mission">Read Our Story</a>
+    </div>
+
+    <!-- WHY CORNERSTONE -->
+    <section class="why-section">
+      <div class="why-header">
+        <div class="why-eyebrow">Why Us</div>
+        <h2 class="why-title">Why Cornerstone Coffee Co.</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-number">01</div>
+          <div class="why-item-title">Wholesale Pricing That Works</div>
+          <p class="why-item-body">Transparent bulk pricing designed for small businesses. No hidden fees. No minimums
+            that put you out of reach.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-number">02</div>
+          <div class="why-item-title">Consistent Roast, Every Order</div>
+          <p class="why-item-body">Your customers expect the same great cup every time. Our small-batch roasting ensures
+            it never varies.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-number">03</div>
+          <div class="why-item-title">A Partner, Not a Supplier</div>
+          <p class="why-item-body">We work closely with small cafe owners to find the right roast, grind, and volume for
+            their unique menu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <div class="cta-band">
+      <div class="cta-band-text">
+        <div class="cta-band-eyebrow">Ready to get started?</div>
+        <div class="cta-band-title">Join 120+ Cafe Partners</div>
+      </div>
+      <div class="cta-band-btns">
+        <a href="wholesale.html" class="btn-cta-primary">Apply for Wholesale</a>
+        <a href="contact.html" class="btn-cta-secondary">Request a Sample</a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">Cornerstone Coffee Co.</div>
+          <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+        </div>
+ 
+        <div class="footer-col">
+          <div class="footer-col-title">Shop</div>
+          <ul>
+            <li><a href="shop.html">All Roasts</a></li>
+            <li><a href="shop.html">Light Roast</a></li>
+            <li><a href="shop.html">Medium Roast</a></li>
+            <li><a href="shop.html">Dark Roast</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <div class="footer-col-title">Wholesale</div>
+          <ul>
+            <li><a href="wholesale.html">Pricing</a></li>
+            <li><a href="wholesale.html">Bulk Orders</a></li>
+            <li><a href="wholesale.html">Get a Sample</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <div class="footer-col-title">Support</div>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="contact.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+ 
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="contact.html">Privacy Policy</a>
+          <a href="wholesale.html">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- secret admin access — 5 clicks on footer logo -->
+  <script>
+    (function() {
+      var clicks = 0;
+      var timer = null;
+      document.addEventListener('click', function(e) {
+        var el = e.target;
+        while (el && el !== document.body) {
+          if (el.classList && el.classList.contains('footer-brand')) {
+            clicks++;
+            clearTimeout(timer);
+            timer = setTimeout(function() { clicks = 0; }, 3000);
+            if (clicks >= 5) {
+              clicks = 0;
+              window.location.href = 'admin.html';
+            }
+            break;
+          }
+          el = el.parentElement;
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    // update cart badge on page load from localStorage
+    (function() {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var total = cart.reduce(function(sum, i) { return sum + (i.qty || 1); }, 0);
+      var badge = document.getElementById('cart-count');
+      if (badge) badge.textContent = total;
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account &ndash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    /* NAV */
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 52px 40px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 48px;
+    }
+
+    /* SIDEBAR */
+    .profile-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .sidebar-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 16px;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .sidebar-email {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 6px;
+    }
+
+    .sidebar-cafe {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 20px;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.7);
+      padding: 5px 12px;
+      margin-bottom: 28px;
+    }
+
+    /* sidebar navigation links for switching between profile sections */
+    .sidebar-nav {
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 20px;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 2px;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 9px 0;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: rgba(245, 245, 245, 0.5);
+      cursor: pointer;
+      transition: color 0.2s;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--white);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--white);
+      border-left-color: var(--white);
+    }
+
+    .btn-signout {
+      margin-top: 28px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(245, 245, 245, 0.45);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .btn-signout:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--white);
+    }
+
+    /* MAIN CONTENT */
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 22px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.4);
+      letter-spacing: 0.5px;
+      margin-bottom: 32px;
+    }
+
+    /* ORDERS */
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .order-row {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 90px 100px;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .order-row.header {
+      background: transparent;
+      border-color: transparent;
+      padding: 0 24px 10px;
+    }
+
+    .order-row.header span {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.35);
+    }
+
+    .order-id {
+      font-size: 11px;
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .order-date {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.55);
+    }
+
+    .order-items {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.7);
+    }
+
+    .order-total {
+      font-size: 12px;
+      color: var(--white);
+      font-family: 'Hammersmith One', sans-serif;
+    }
+
+    .order-status {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      display: inline-block;
+    }
+
+    .status-delivered {
+      background: rgba(80, 160, 80, 0.15);
+      color: #80c880;
+      border: 1px solid rgba(80, 160, 80, 0.2);
+    }
+
+    .status-processing {
+      background: rgba(200, 160, 60, 0.15);
+      color: #c8c060;
+      border: 1px solid rgba(200, 160, 60, 0.2);
+    }
+
+    .status-shipped {
+      background: rgba(80, 140, 200, 0.15);
+      color: #80b0e0;
+      border: 1px solid rgba(80, 140, 200, 0.2);
+    }
+
+    /* ORDER TRACKER */
+    .order-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .order-card-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 90px 110px 40px;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      cursor: pointer;
+    }
+
+    .order-card-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .order-card-body {
+      display: none;
+      padding: 0 24px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .order-card-body.open {
+      display: block;
+    }
+
+    .order-toggle {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.4);
+      text-align: right;
+    }
+
+    /* TRACKER BAR */
+    /* order tracker styles
+       each step has a dot and a label, connected by a line
+       the line turns white when that step is completed */
+    .tracker-wrap {
+      padding-top: 24px;
+    }
+
+    .tracker-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .tracker-steps {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+
+    .tracker-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .tracker-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 0;
+    }
+
+    .tracker-step.done:not(:last-child)::after {
+      background: var(--white);
+    }
+
+    .tracker-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--black-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .tracker-step.done .tracker-dot {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .tracker-step.current .tracker-dot {
+      border-color: var(--white);
+      color: var(--white);
+      box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.1);
+    }
+
+    .tracker-step-name {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.35);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .tracker-step.done .tracker-step-name,
+    .tracker-step.current .tracker-step-name {
+      color: rgba(245, 245, 245, 0.8);
+    }
+
+    .tracker-step-date {
+      font-size: 9px;
+      color: rgba(245, 245, 245, 0.3);
+      margin-top: 3px;
+      text-align: center;
+    }
+
+    .btn-advance {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(245, 245, 245, 0.7);
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-advance:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .btn-advance:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .tracker-complete-msg {
+      font-size: 10px;
+      color: #80c880;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    .tracker-status-note {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.35);
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    .empty-orders {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .empty-orders p {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.35);
+      margin-bottom: 20px;
+    }
+
+    .btn-shop {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 11px 24px;
+    }
+
+    .btn-shop:hover {
+      background: var(--white-dark);
+    }
+
+    /* EDIT PROFILE */
+    .edit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .edit-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      margin-bottom: 0;
+    }
+
+    .field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .field input:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .save-row {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-save {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-save:hover {
+      background: var(--white-dark);
+    }
+
+    .save-confirm {
+      font-size: 10px;
+      color: #80c880;
+      display: none;
+    }
+
+    .save-confirm.show {
+      display: block;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin: 36px 0;
+    }
+
+    .password-section .section-label {
+      font-size: 13px;
+      font-family: 'Hammersmith One', sans-serif;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="wholesale.html">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="profile.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile-avatar" id="avatar-initials">?</div>
+      <div class="sidebar-name" id="sidebar-name">&mdash;</div>
+      <div class="sidebar-email" id="sidebar-email">&mdash;</div>
+      <div class="sidebar-cafe" id="sidebar-cafe">&mdash;</div>
+      <div class="tier-badge" id="sidebar-tier">Starter</div>
+
+      <ul class="sidebar-nav">
+        <li><a class="active" onclick="showSection('orders', this)">Order History</a></li>
+        <li><a onclick="showSection('edit', this)">Edit Profile</a></li>
+        <li><a onclick="showSection('settings', this)">Settings</a></li>
+      </ul>
+
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- ORDERS -->
+      <div class="tab-section active" id="section-orders">
+        <div class="section-title">Order History</div>
+        <div class="section-sub">Your past wholesale orders</div>
+        <div id="orders-container"></div>
+      </div>
+
+      <!-- EDIT PROFILE -->
+      <div class="tab-section" id="section-edit">
+        <div class="section-title">Edit Profile</div>
+        <div class="section-sub">Update your account details</div>
+
+        <div class="edit-grid">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="edit-first">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="edit-last">
+          </div>
+          <div class="field full">
+            <label>Email Address</label>
+            <input type="email" id="edit-email">
+          </div>
+          <div class="field full">
+            <label>Cafe / Business Name</label>
+            <input type="text" id="edit-cafe">
+          </div>
+        </div>
+
+        <div class="save-row">
+          <button class="btn-save" onclick="saveProfile()">Save Changes</button>
+          <span class="save-confirm" id="profile-saved">&#10003; Changes saved</span>
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="password-section">
+          <div class="section-label">Change Password</div>
+          <div class="edit-grid">
+            <div class="field full">
+              <label>Current Password</label>
+              <input type="password" id="pw-current" placeholder="••••••••">
+            </div>
+            <div class="field">
+              <label>New Password</label>
+              <input type="password" id="pw-new" placeholder="Min. 6 characters">
+            </div>
+            <div class="field">
+              <label>Confirm New Password</label>
+              <input type="password" id="pw-confirm" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="save-row">
+            <button class="btn-save" onclick="changePassword()">Update Password</button>
+            <span class="save-confirm" id="pw-saved">&#10003; Password updated</span>
+            <span class="save-confirm" id="pw-error" style="color:#e07070;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="tab-section" id="section-settings">
+        <div class="section-title">Settings</div>
+        <div class="section-sub">Manage your account preferences</div>
+
+        <div
+          style="background:var(--black-mid);border:1px solid rgba(255,255,255,0.06);padding:28px 24px;margin-bottom:1px;">
+          <div style="font-size:11px;color:var(--white);margin-bottom:4px;">Email Notifications</div>
+          <div style="font-size:10px;color:rgba(245,245,245,0.45);margin-bottom:14px;">Receive order updates and restock
+            reminders</div>
+          <label
+            style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:11px;color:rgba(245,245,245,0.7);">
+            <input type="checkbox" id="notif-orders" checked style="accent-color:var(--white);width:14px;height:14px;">
+            Order confirmations and shipping updates
+          </label>
+        </div>
+
+        <div
+          style="background:var(--black-mid);border:1px solid rgba(255,255,255,0.06);border-top:none;padding:28px 24px;margin-bottom:1px;">
+          <div style="font-size:11px;color:var(--white);margin-bottom:4px;">Restock Reminders</div>
+          <div style="font-size:10px;color:rgba(245,245,245,0.45);margin-bottom:14px;">Get notified when it's time to
+            reorder</div>
+          <label
+            style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:11px;color:rgba(245,245,245,0.7);">
+            <input type="checkbox" id="notif-restock" checked style="accent-color:var(--white);width:14px;height:14px;">
+            Send me restock reminders every 30 days
+          </label>
+        </div>
+
+        <div
+          style="background:var(--black-mid);border:1px solid rgba(255,255,255,0.06);border-top:none;padding:28px 24px;">
+          <div style="font-size:11px;color:#e07070;margin-bottom:4px;">Delete Account</div>
+          <div style="font-size:10px;color:rgba(245,245,245,0.45);margin-bottom:14px;">This will permanently remove your
+            account and all data</div>
+          <button onclick="deleteAccount()"
+            style="background:transparent;border:1px solid rgba(200,80,80,0.3);color:#e07070;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 18px;cursor:pointer;">Delete
+            My Account</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // redirect if not logged in
+    var userData = localStorage.getItem('cc_user');
+    if (!userData) {
+      window.location.href = 'auth.html';
+      throw new Error('Not logged in'); // stop the rest of the script from running
+    }
+
+    var user = JSON.parse(userData);
+
+    // populate sidebar
+    document.getElementById('avatar-initials').textContent = user.firstName.charAt(0) + user.lastName.charAt(0);
+    document.getElementById('sidebar-name').textContent = user.firstName + ' ' + user.lastName;
+    document.getElementById('sidebar-email').textContent = user.email;
+    document.getElementById('sidebar-cafe').textContent = user.cafe;
+    document.getElementById('sidebar-tier').textContent = user.tier + ' Account';
+
+    // populate edit form
+    document.getElementById('edit-first').value = user.firstName;
+    document.getElementById('edit-last').value = user.lastName;
+    document.getElementById('edit-email').value = user.email;
+    document.getElementById('edit-cafe').value = user.cafe;
+
+    // render orders
+    // the three stages an order goes through
+    // admin controls which stage the order is at — customer just sees it update
+    var STAGES = ['Processing', 'Shipped', 'Delivered'];
+
+    function getStageIndex(status) {
+      var idx = STAGES.indexOf(status);
+      return idx === -1 ? 0 : idx;
+    }
+
+    // saves updated orders back to localStorage
+    // has to update both cc_users (the full array) and cc_user (the active session)
+    // if you only update one, they get out of sync
+    function saveOrders(orders) {
+      user.orders = orders;
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      var idx = users.findIndex(function (u) { return u.email === user.email; });
+      if (idx > -1) { users[idx] = user; localStorage.setItem('cc_users', JSON.stringify(users)); }
+      localStorage.setItem('cc_current_user', JSON.stringify(user));
+    }
+
+    function advanceOrder(orderId) {
+      var orders = user.orders || [];
+      var order = orders.find(function (o) { return o.id === orderId; });
+      if (!order) return;
+      var idx = getStageIndex(order.status);
+      if (idx < STAGES.length - 1) {
+        order.status = STAGES[idx + 1];
+        order.statusDates = order.statusDates || {};
+        order.statusDates[order.status] = new Date().toLocaleDateString();
+        saveOrders(orders);
+        renderOrders();
+        // re-open the card that was just updated
+        var body = document.getElementById('order-body-' + orderId);
+        var toggle = document.getElementById('order-toggle-' + orderId);
+        if (body) { body.classList.add('open'); toggle.textContent = '\u25b2'; }
+      }
+    }
+
+    // expands or collapses an order card to show the tracking info
+    // uses classList to toggle the open class
+    function toggleOrderCard(orderId) {
+      var body = document.getElementById('order-body-' + orderId);
+      var toggle = document.getElementById('order-toggle-' + orderId);
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        toggle.textContent = '\u25bc';
+      } else {
+        body.classList.add('open');
+        toggle.textContent = '\u25b2';
+      }
+    }
+
+    // builds the order history HTML from the user object in localStorage
+    // each order gets a collapsible card with a visual tracker inside
+    function renderOrders() {
+      var container = document.getElementById('orders-container');
+      if (!user.orders || user.orders.length === 0) {
+        container.innerHTML = '<div class="empty-orders"><p>You haven\'t placed any orders yet.</p><a href="shop.html" class="btn-shop">Browse Products</a></div>';
+        return;
+      }
+
+      var html = '<div class="order-row header"><span>Order</span><span>Date</span><span>Items</span><span>Total</span><span>Status</span><span></span></div>';
+
+      user.orders.forEach(function (order) {
+        var stageIdx = getStageIndex(order.status || 'Processing');
+        var statusClass = 'status-' + (order.status || 'Processing').toLowerCase();
+        var statusDates = order.statusDates || {};
+
+        var stepsHtml = STAGES.map(function (stage, i) {
+          var cls = i < stageIdx ? 'done' : i === stageIdx ? 'current' : '';
+          var icon = i < stageIdx ? '\u2713' : (i + 1);
+          var dateStr = statusDates[stage] ? '<div class="tracker-step-date">' + statusDates[stage] + '</div>' : '';
+          return '<div class="tracker-step ' + cls + '">' +
+            '<div class="tracker-dot">' + icon + '</div>' +
+            '<div class="tracker-step-name">' + stage + '</div>' +
+            dateStr + '</div>';
+        }).join('');
+
+        var isDelivered = order.status === 'Delivered';
+        var advanceBtn = isDelivered
+          ? '<div class="tracker-complete-msg">\u2713 Order delivered</div>'
+          : '<div class="tracker-status-note">Your order is being processed. Updates will appear here.</div>';
+
+        html += '<div class="order-card">';
+        html += '<div class="order-card-header" onclick="toggleOrderCard(\'' + order.id + '\')"> ';
+        html += '<div class="order-id">' + order.id + '</div>';
+        html += '<div class="order-date">' + order.date + '</div>';
+        html += '<div class="order-items">' + order.items + '</div>';
+        html += '<div class="order-total">' + order.total + '</div>';
+        html += '<div><span class="order-status ' + statusClass + '">' + (order.status || 'Processing') + '</span></div>';
+        html += '<div class="order-toggle" id="order-toggle-' + order.id + '">' + '\u25bc' + '</div>';
+        html += '</div>';
+        html += '<div class="order-card-body" id="order-body-' + order.id + '">';
+        html += '<div class="tracker-wrap"><div class="tracker-label">Order Tracking</div>';
+        html += '<div class="tracker-steps">' + stepsHtml + '</div>';
+        html += advanceBtn + '</div></div></div>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    renderOrders();
+
+    // tab switching
+    // handles sidebar tab switching (Orders, Edit Profile, Settings)
+    // hides all sections then shows the one that was clicked
+    function showSection(id, el) {
+      document.querySelectorAll('.tab-section').forEach(function (s) { s.classList.remove('active'); });
+      document.querySelectorAll('.sidebar-nav a').forEach(function (a) { a.classList.remove('active'); });
+      document.getElementById('section-' + id).classList.add('active');
+      el.classList.add('active');
+    }
+
+    // save profile
+    function showFieldError(id, msg) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.borderColor = '#e07070';
+      var existing = el.parentNode.querySelector('.field-error-msg');
+      if (!existing) {
+        var err = document.createElement('div');
+        err.className = 'field-error-msg';
+        err.style.cssText = 'font-size:10px;color:#e07070;margin-top:5px;letter-spacing:0.5px;';
+        err.textContent = msg;
+        el.parentNode.appendChild(err);
+      }
+    }
+
+    function clearFieldErrors() {
+      document.querySelectorAll('.field-error-msg').forEach(function (e) { e.remove(); });
+      document.querySelectorAll('.field input').forEach(function (e) { e.style.borderColor = ''; });
+    }
+
+    // saves edits to the user profile
+    // validates each field individually and shows inline error messages
+    // had to update both cc_users and cc_user to keep everything in sync
+    function saveProfile() {
+      clearFieldErrors();
+      var first = document.getElementById('edit-first').value.trim();
+      var last = document.getElementById('edit-last').value.trim();
+      var email = document.getElementById('edit-email').value.trim();
+      var cafe = document.getElementById('edit-cafe').value.trim();
+      var hasErrors = false;
+
+      if (!first) { showFieldError('edit-first', 'First name is required'); hasErrors = true; }
+      if (!last) { showFieldError('edit-last', 'Last name is required'); hasErrors = true; }
+      if (!email) { showFieldError('edit-email', 'Email is required'); hasErrors = true; }
+      else if (!/\S+@\S+\.\S+/.test(email)) { showFieldError('edit-email', 'Please enter a valid email'); hasErrors = true; }
+      if (!cafe) { showFieldError('edit-cafe', 'Cafe name is required'); hasErrors = true; }
+      if (hasErrors) return;
+
+      user.firstName = first;
+      user.lastName = last;
+      user.email = email;
+      user.cafe = cafe;
+
+      // update in users array
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      var idx = users.findIndex(function (u) { return u.id === user.id; });
+      if (idx !== -1) { users[idx] = user; }
+      localStorage.setItem('cc_users', JSON.stringify(users));
+      localStorage.setItem('cc_user', JSON.stringify(user));
+
+      // refresh sidebar
+      document.getElementById('avatar-initials').textContent = first.charAt(0) + last.charAt(0);
+      document.getElementById('sidebar-name').textContent = first + ' ' + last;
+      document.getElementById('sidebar-email').textContent = email;
+      document.getElementById('sidebar-cafe').textContent = cafe;
+
+      var confirm = document.getElementById('profile-saved');
+      confirm.classList.add('show');
+      setTimeout(function () { confirm.classList.remove('show'); }, 3000);
+    }
+
+    // change password
+    function changePassword() {
+      var current = document.getElementById('pw-current').value;
+      var newPw = document.getElementById('pw-new').value;
+      var confirm = document.getElementById('pw-confirm').value;
+      var errorEl = document.getElementById('pw-error');
+      var successEl = document.getElementById('pw-saved');
+
+      errorEl.classList.remove('show');
+      successEl.classList.remove('show');
+
+      if (current !== user.password) {
+        errorEl.textContent = '&#10005; Current password is incorrect.';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (newPw.length < 6) {
+        errorEl.textContent = '&#10005; New password must be at least 6 characters.';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (newPw !== confirm) {
+        errorEl.textContent = '&#10005; Passwords do not match.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      user.password = newPw;
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      var idx = users.findIndex(function (u) { return u.id === user.id; });
+      if (idx !== -1) { users[idx] = user; }
+      localStorage.setItem('cc_users', JSON.stringify(users));
+      localStorage.setItem('cc_user', JSON.stringify(user));
+
+      document.getElementById('pw-current').value = '';
+      document.getElementById('pw-new').value = '';
+      document.getElementById('pw-confirm').value = '';
+      successEl.classList.add('show');
+      setTimeout(function () { successEl.classList.remove('show'); }, 3000);
+    }
+
+    // sign out
+    function signOut() {
+      localStorage.removeItem('cc_user');
+      window.location.href = 'auth.html';
+    }
+
+    // delete account
+    function deleteAccount() {
+      if (!confirm('Are you sure? This cannot be undone.')) return;
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      users = users.filter(function (u) { return u.id !== user.id; });
+      localStorage.setItem('cc_users', JSON.stringify(users));
+      localStorage.removeItem('cc_user');
+      window.location.href = 'index.html';
+    }
+  </script>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="wholesale.html">Shipping & Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <!-- secret admin access &mdash; 5 clicks on footer logo -->
+  <script>
+    (function () {
+      var clicks = 0;
+      var timer = null;
+      document.addEventListener('click', function (e) {
+        var el = e.target;
+        // check if clicked element or its parent is the footer-brand
+        while (el && el !== document.body) {
+          if (el.classList && el.classList.contains('footer-brand')) {
+            clicks++;
+            clearTimeout(timer);
+            timer = setTimeout(function () { clicks = 0; }, 3000);
+            if (clicks >= 5) {
+              clicks = 0;
+              window.location.href = 'admin.html';
+            }
+            break;
+          }
+          el = el.parentElement;
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

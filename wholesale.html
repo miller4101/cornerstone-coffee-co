@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wholesale &mdash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── WHOLESALE HERO ── */
+    .wholesale-hero {
+      padding: 64px 60px 72px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1100px;
+    }
+
+    .hero-img-wrap {
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 52px;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(245, 245, 245, 0.65);
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .hero-btn-primary:hover {
+      opacity: 0.85;
+    }
+
+    .hero-btn-secondary {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .hero-btn-secondary:hover {
+      color: var(--white);
+    }
+
+    /* ── BANNER ── */
+    .banner {
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      background: var(--black-mid);
+    }
+
+    .banner-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(245, 245, 245, 0.3);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .banner-placeholder-icon {
+      font-size: 32px;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10, 10, 10, 0.75) 0%, rgba(10, 10, 10, 0.2) 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+      pointer-events: none;
+    }
+
+    .banner-tag {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.55);
+      margin-bottom: 10px;
+    }
+
+    .banner-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 30px;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 80px 60px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pricing-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 32px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .pricing-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(245, 245, 245, 0.25);
+      background: var(--black-light);
+    }
+
+    .pricing-featured-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      color: var(--black);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      font-weight: 700;
+    }
+
+    .pricing-tier {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 8px;
+      margin-top: 12px;
+    }
+
+    .pricing-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .pricing-qty {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .pricing-price {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 36px;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .pricing-price span {
+      font-size: 14px;
+      color: rgba(245, 245, 245, 0.5);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .pricing-save {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.45);
+      margin-bottom: 20px;
+    }
+
+    .pricing-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      margin: 20px 0;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features li {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.65);
+      padding: 6px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .check {
+      color: var(--white);
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pricing-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(245, 245, 245, 0.75);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pricing-btn:hover {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .pricing-card.featured .pricing-btn {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .pricing-card.featured .pricing-btn:hover {
+      opacity: 0.85;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 80px 60px;
+      background: var(--black-mid);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .step {
+      padding: 28px 24px;
+      background: var(--black);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .step h4 {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 11px;
+      line-height: 1.8;
+      color: rgba(245, 245, 245, 0.55);
+    }
+
+    /* ── PARTNER CAFES ── */
+    .partner-section {
+      padding: 80px 60px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .partner-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      overflow: hidden;
+    }
+
+    .partner-placeholder {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.3);
+      background: var(--black-light);
+    }
+
+    .partner-placeholder-icon {
+      font-size: 28px;
+    }
+
+    .partner-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .partner-label {
+      padding: 16px 20px;
+    }
+
+    .partner-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+
+    .partner-location {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.4);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CTA / CONTACT FORM ── */
+    .cta-section {
+      padding: 80px 60px;
+      background: var(--black-mid);
+    }
+
+    .cta-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .cta-inner .section-title {
+      text-align: center;
+    }
+
+    .cta-inner .contact-form {
+      background: var(--black);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 0;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(245, 245, 245, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-success {
+      display: none;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .form-success h3 {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 20px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .form-success p,
+    .form-success {
+      font-size: 12px;
+      color: rgba(245, 245, 245, 0.6);
+      line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="wholesale.html" class="active">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="auth.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+  <!-- WHOLESALE HERO -->
+  <div class="wholesale-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>></span>Wholesale
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-title">Coffee Built for<br><em>Your Business.</em></h1>
+        <p class="hero-sub">Transparent wholesale pricing, flexible order quantities, and a team that actually knows
+          your name. No contracts. No minimums that put you out of reach.</p>
+        <div class="hero-cta-row">
+          <a href="#contact-form" class="hero-btn-primary">
+            Apply Now &rarr;
+          </a>
+          <a href="#contact-form" class="hero-btn-secondary">
+            Request a Sample &rarr;
+          </a>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="images/coffee-shop.png" alt="Cornerstone Coffee shop">
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING TIERS -->
+  <section class="pricing-section">
+    <div class="section-tag">— Pricing —</div>
+    <h2 class="section-title">Simple, Transparent Pricing</h2>
+    <p class="section-sub">No contracts. No hidden fees. Just good coffee at fair prices.</p>
+
+    <div class="pricing-grid">
+
+      <!-- TIER 1 -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Single Bag</div>
+        <div class="pricing-qty">1–4 bags per order</div>
+        <div class="pricing-price">$55 <span>/ 5lb bag</span></div>
+        <div class="pricing-save">Standard pricing</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> All roasts available</li> <!-- HTML Entity Number for check mark -->
+          <li><span class="check">&#10003;</span> Ships within 3–5 days</li>
+          <li><span class="check">&#10003;</span> No minimum order</li>
+          <li><span class="check">&#10003;</span> Email support</li>
+        </ul>
+        <button class="pricing-btn" onclick="scrollToForm()">Get Started</button>
+      </div>
+
+      <!-- TIER 2 — FEATURED -->
+      <div class="pricing-card featured">
+        <div class="pricing-featured-badge">Most Popular</div>
+        <div class="pricing-tier">Partner</div>
+        <div class="pricing-name">Case Order</div>
+        <div class="pricing-qty">5–19 bags per order</div>
+        <div class="pricing-price">$48 <span>/ 5lb bag</span></div>
+        <div class="pricing-save">Save 13% vs. single bag</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> All roasts available</li>
+          <li><span class="check">&#10003;</span> Ships within 2–3 days</li>
+          <li><span class="check">&#10003;</span> Free shipping included</li>
+          <li><span class="check">&#10003;</span> Priority support</li>
+          <li><span class="check">&#10003;</span> Dedicated account rep</li>
+        </ul>
+        <button class="pricing-btn" onclick="scrollToForm()">Apply Now</button>
+      </div>
+
+      <!-- TIER 3 -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Bulk</div>
+        <div class="pricing-name">High Volume</div>
+        <div class="pricing-qty">20+ bags per order</div>
+        <div class="pricing-price">$42 <span>/ 5lb bag</span></div>
+        <div class="pricing-save">Save 24% vs. single bag</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> All roasts available</li>
+          <li><span class="check">&#10003;</span> Ships within 1&mdash;2 days</li>
+          <li><span class="check">&#10003;</span> Free shipping included</li>
+          <li><span class="check">&#10003;</span> Dedicated account rep</li>
+          <li><span class="check">&#10003;</span> Custom grind options</li>
+          <li><span class="check">&#10003;</span> Private label available</li>
+        </ul>
+        <button class="pricing-btn" onclick="scrollToForm()">Contact Us</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="section-tag">— Process —</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Getting started takes less than 10 minutes.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Fill Out the Form</h4>
+        <p>Tell us about your cafe and how much coffee you go through each week.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Get a Sample</h4>
+        <p>We'll send you a sample pack of our most popular roasts at no cost.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Place Your Order</h4>
+        <p>Choose your roast, quantity, and grind type. We handle the rest.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h4>Fresh to Your Door</h4>
+        <p>Every order is roasted fresh within 48 hours of shipping.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER CAFE PHOTOS -->
+  <section class="partner-section">
+    <div class="section-tag">— Our Partners —</div>
+    <h2 class="section-title">Cafes We Work With</h2>
+    <p class="section-sub">Small businesses doing big things with great coffee.</p>
+
+    <div class="partner-grid">
+
+      <!-- PARTNER PHOTO 1 -->
+      <div class="partner-card">
+        <img src="images/maplewood.png" alt="Maplewood Cafe" class="partner-img">
+        <div class="partner-label">
+          <div class="partner-name">Maplewood Cafe</div>
+          <div class="partner-location">Portland, OR</div>
+        </div>
+      </div>
+
+      <!-- PARTNER PHOTO 2 -->
+      <div class="partner-card">
+        <img src="images/rosewood.png" alt="Rosewood Roasters" class="partner-img">
+        <div class="partner-label">
+          <div class="partner-name">Rosewood Roasters</div>
+          <div class="partner-location">Austin, TX</div>
+        </div>
+      </div>
+
+      <!-- PARTNER PHOTO 3 -->
+      <div class="partner-card">
+        <img src="images/pressandpour.png" alt="Press &amp; Pour Co." class="partner-img">
+        <div class="partner-label">
+          <div class="partner-name">Press &amp; Pour Co.</div>
+          <div class="partner-location">Nashville, TN</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <!-- this form doesnt actually send yet, need to add backend later -->
+  <section class="cta-section" id="contact-form">
+    <div class="cta-inner">
+      <div class="section-tag" style="text-align:center;">— Get In Touch —</div>
+      <h2 class="section-title">Ready to Partner With Us?</h2>
+      <p class="section-sub">Fill out the form and we'll get back to you within one business day.</p>
+
+      <!-- Success message shown after submit -->
+      <div class="form-success" id="form-success">
+        <h3>We got your message!</h3>
+        Thank you for reaching out. Our wholesale team will contact you within one business day. In the meantime, feel
+        free to browse our roasts.
+      </div>
+
+      <form class="contact-form" id="wholesale-form" onsubmit="handleSubmit(event)">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="Smith" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@yourcafe.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cafe-name">Cafe Name</label>
+          <input type="text" id="cafe-name" placeholder="Your Cafe Name" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="volume">Weekly Volume</label>
+            <select id="volume">
+              <option value="">Select an option</option>
+              <option>Less than 5 lbs/week</option>
+              <option>5&mdash;20 lbs/week</option>
+              <option>20&mdash;50 lbs/week</option>
+              <option>50+ lbs/week</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="roast">Preferred Roast</label>
+            <select id="roast">
+              <option value="">Select an option</option>
+              <option>Light Roast</option>
+              <option>Medium Roast</option>
+              <option>Dark Roast</option>
+              <option>Mix / Not Sure Yet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Anything else we should know?</label>
+          <textarea id="message"
+            placeholder="Tell us about your cafe, your menu, or any questions you have..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send My Inquiry &rarr;</button>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="wholesale.html">Shipping &amp; Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var qty = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+      var el = document.getElementById('cart-count');
+      if (el) el.textContent = qty;
+      if (localStorage.getItem('cc_user')) {
+        var btn = document.getElementById('nav-profile-btn');
+        if (btn) btn.href = 'profile.html';
+      }
+    })();
+  </script>
+  <script>
+
+    // ── SCROLL TO FORM ──
+    function scrollToForm() {
+      document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ── FORM SUBMIT ──
+    // NOTE: This currently just shows a success message.
+    // When I add a backend, replace this function with a real fetch() POST request.
+    function handleSubmit(event) {
+      event.preventDefault(); // Stop the page from refreshing
+
+      // Basic validation — check required fields are filled
+      const firstName = document.getElementById('first-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const cafeName = document.getElementById('cafe-name').value.trim();
+
+      if (!firstName || !email || !cafeName) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      // Hide the form, show the success message
+      document.getElementById('wholesale-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+
+
+    function submitWholesale(event) {
+      event.preventDefault();
+      var errors = [];
+      var cafeName = document.getElementById('cafe-name');
+      var email = document.getElementById('contact-email');
+      var volume = document.getElementById('monthly-volume');
+
+      clearErrors();
+
+      if (!cafeName || !cafeName.value.trim()) { showError('cafe-name', 'Cafe name is required'); errors.push(1); }
+      if (!email || !email.value.trim()) { showError('contact-email', 'Email is required'); errors.push(1); }
+      else if (!/\S+@\S+\.\S+/.test(email.value)) { showError('contact-email', 'Please enter a valid email'); errors.push(1); }
+      if (!volume || !volume.value.trim()) { showError('monthly-volume', 'Please estimate your monthly volume'); errors.push(1); }
+
+      if (errors.length > 0) return;
+
+      var btn = document.getElementById('submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+      setTimeout(function () {
+        document.getElementById('wholesale-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      }, 1000);
+    }
+
+    function showError(id, msg) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.borderColor = '#e07070';
+      var err = document.createElement('div');
+      err.className = 'field-error';
+      err.textContent = msg;
+      err.style.cssText = 'font-size:10px;color:#e07070;margin-top:5px;';
+      el.parentNode.appendChild(err);
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.field-error').forEach(function (e) { e.remove(); });
+      document.querySelectorAll('input, textarea, select').forEach(function (e) { e.style.borderColor = ''; });
+    }
+
+  </script>
+</body>
+
+</html>

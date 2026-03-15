@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In &ndash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    nav {
+      background: var(--black);
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 16px;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .auth-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .auth-card {
+      background: var(--black-mid);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      width: 100%;
+      max-width: 420px;
+      padding: 48px 40px;
+    }
+
+    .auth-logo {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(245, 245, 245, 0.35);
+      margin-bottom: 28px;
+    }
+
+    .auth-toggle {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 32px;
+    }
+
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(245, 245, 245, 0.45);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0 0 14px;
+      margin-right: 28px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: -1px;
+    }
+
+    .toggle-btn.active {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .form-heading {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 26px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .form-sub {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.4);
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 7px;
+    }
+
+    .field input {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .field input::placeholder {
+      color: rgba(245, 245, 245, 0.18);
+    }
+
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .error-msg {
+      font-size: 10px;
+      color: #e07070;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover {
+      background: var(--white-dark);
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.35);
+    }
+
+    .form-footer a {
+      color: rgba(245, 245, 245, 0.6);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .form-footer a:hover {
+      color: var(--white);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+  </nav>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">Cornerstone Coffee Co.</div>
+
+      <div class="auth-toggle">
+        <button class="toggle-btn active" id="tab-login" onclick="showTab('login')">Sign In</button>
+        <button class="toggle-btn" id="tab-signup" onclick="showTab('signup')">Create Account</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="auth-form active" id="form-login">
+        <div class="form-heading">Welcome back.</div>
+        <div class="form-sub">Sign in to your wholesale account</div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="you@yourcafe.com">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
+        <div class="error-msg" id="login-error">Email or password is incorrect.</div>
+        <button class="btn-submit" onclick="handleLogin()">Sign In &rarr;</button>
+        <div class="form-footer">
+          Don't have an account? <a onclick="showTab('signup')">Create one</a>
+        </div>
+      </div>
+
+      <!-- SIGNUP -->
+      <div class="auth-form" id="form-signup">
+        <div class="form-heading">Create account.</div>
+        <div class="form-sub">Join our wholesale program today</div>
+        <div class="name-row">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="signup-first" placeholder="Jane">
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="signup-last" placeholder="Smith">
+          </div>
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="signup-email" placeholder="you@yourcafe.com">
+        </div>
+        <div class="field">
+          <label>Cafe / Business Name</label>
+          <input type="text" id="signup-cafe" placeholder="The Morning Cup">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="signup-password" placeholder="Min. 6 characters">
+        </div>
+        <div class="error-msg" id="signup-error">Please fill in all fields.</div>
+        <button class="btn-submit" onclick="handleSignup()">Create Account &rarr;</button>
+        <div class="form-footer">
+          Already have an account? <a onclick="showTab('login')">Sign in</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // already logged in &mdash; skip straight to profile
+    if (localStorage.getItem('cc_user')) {
+      window.location.href = 'profile.html';
+    }
+
+    // switches between the Sign In and Create Account tabs
+    // removes active class from both then adds it to whichever tab was clicked
+    function showTab(tab) {
+      document.getElementById('form-login').classList.remove('active');
+      document.getElementById('form-signup').classList.remove('active');
+      document.getElementById('tab-login').classList.remove('active');
+      document.getElementById('tab-signup').classList.remove('active');
+      document.getElementById('form-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+      document.getElementById('login-error').classList.remove('show');
+      document.getElementById('signup-error').classList.remove('show');
+    }
+
+    // handles the login form submission
+    // looks through saved users in localStorage and checks if email + password match
+    // if they do, save that user as the "current user" and redirect to profile
+    function handleLogin() {
+      var email = document.getElementById('login-email').value.trim();
+      var password = document.getElementById('login-password').value;
+      var errorEl = document.getElementById('login-error');
+
+      if (!email || !password) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      var match = users.find(function (u) { return u.email === email && u.password === password; });
+
+      if (!match) {
+        errorEl.textContent = 'Email or password is incorrect.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      localStorage.setItem('cc_user', JSON.stringify(match));
+      window.location.href = 'profile.html';
+    }
+
+    // handles new account creation
+    // validates all fields, checks for duplicate emails, then saves new user to localStorage
+    // also seeds two sample past orders so the profile page doesn't look empty on first login
+    function handleSignup() {
+      var first = document.getElementById('signup-first').value.trim();
+      var last = document.getElementById('signup-last').value.trim();
+      var email = document.getElementById('signup-email').value.trim();
+      var cafe = document.getElementById('signup-cafe').value.trim();
+      var password = document.getElementById('signup-password').value;
+      var errorEl = document.getElementById('signup-error');
+
+      if (!first || !last || !email || !cafe || !password) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.classList.add('show');
+        return;
+      }
+      if (password.length < 6) {
+        errorEl.textContent = 'Password must be at least 6 characters.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+      if (users.find(function (u) { return u.email === email; })) {
+        errorEl.textContent = 'An account with that email already exists.';
+        errorEl.classList.add('show');
+        return;
+      }
+
+      // build the new user object with all their info
+      // tier starts as "Starter" — could be upgraded later based on order volume
+      var newUser = {
+        id: Date.now(),
+        firstName: first,
+        lastName: last,
+        email: email,
+        cafe: cafe,
+        password: password,
+        tier: 'Starter',
+        joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        orders: [
+          // seed a sample order so profile doesn't look empty
+          { id: '#1001', date: 'Feb 14, 2026', items: 'Everyday Gold 5lb &times; 2', total: '$104.00', status: 'Delivered' },
+          { id: '#1002', date: 'Jan 28, 2026', items: 'Morning Bloom 5lb &times; 1', total: '$48.00', status: 'Delivered' }
+        ]
+      };
+
+      users.push(newUser);
+      localStorage.setItem('cc_users', JSON.stringify(users));
+      localStorage.setItem('cc_user', JSON.stringify(newUser));
+      window.location.href = 'profile.html';
+    }
+  </script>
+</body>
+
+</html>

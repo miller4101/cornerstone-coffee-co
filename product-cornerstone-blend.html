@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cornerstone Blend &mdash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    .product-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+
+    .product-gallery {
+      background: var(--black-light);
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-info {
+      box-sizing: border-box;
+    }
+
+    .photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .photo-placeholder .ph-icon {
+      font-size: 64px;
+      opacity: 0.08;
+    }
+
+    .photo-placeholder span {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .product-gallery img {
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+      object-fit: contain;
+      padding: 48px;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 2;
+      background: var(--white);
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .product-info {
+      padding: 52px 52px 48px;
+      background: var(--black-mid);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .product-roast {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.75);
+      margin-bottom: 10px;
+    }
+
+    .product-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 48px;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .product-origin {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      margin-bottom: 24px;
+    }
+
+    .info-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.75);
+      margin-bottom: 12px;
+    }
+
+    .flavor-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .flavor-tag {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(245, 245, 245, 0.85);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+    }
+
+    .roast-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .roast-seg {
+      height: 3px;
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .roast-seg.on {
+      background: var(--white);
+    }
+
+    .size-opts {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .size-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(245, 245, 245, 0.75);
+      padding: 10px 18px;
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .size-btn:hover {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    .size-btn.active {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    .price-line {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 20px;
+    }
+
+    .price-line strong {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 26px;
+      color: var(--white);
+      margin-right: 6px;
+    }
+
+    .purchase-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .qty-wrap {
+      display: flex;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .qty-btn {
+      background: transparent;
+      border: none;
+      color: var(--white);
+      width: 36px;
+      height: 44px;
+      font-size: 16px;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .qty-btn:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .qty-num {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-add {
+      flex: 1;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      height: 44px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover {
+      background: var(--white-dark);
+    }
+
+    .shipping-note {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .product-tabs {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0 60px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(245, 245, 245, 0.75);
+      padding: 18px 0;
+      margin-right: 36px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+    }
+
+    .tab-btn.active {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 48px 60px;
+    }
+
+    .tab-panel p {
+      font-size: 12px;
+      line-height: 1.9;
+      color: rgba(245, 245, 245, 0.75);
+      max-width: 580px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 32px;
+    }
+
+    .detail-item {
+      background: var(--black);
+      padding: 22px 24px;
+    }
+
+    .detail-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    .related-section {
+      padding: 60px 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--black-mid);
+    }
+
+    .related-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+    }
+
+    .related-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .related-link {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.75);
+      text-decoration: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .related-link:hover {
+      color: var(--white);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .related-card {
+      background: var(--black-mid);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .related-card:hover {
+      background: var(--black-light);
+    }
+
+    .related-card-img {
+      height: 160px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      background: var(--black-light);
+    }
+
+    .related-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 16px;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    .rc-light {
+      background: #181810;
+    }
+
+    .rc-medium {
+      background: #141410;
+    }
+
+    .rc-dark {
+      background: #0e0e0e;
+    }
+
+    .rc-blend {
+      background: #121212;
+    }
+
+    .related-body {
+      padding: 20px;
+    }
+
+    .related-roast {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 5px;
+    }
+
+    .related-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .related-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .related-price {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+    }
+
+    .related-price span {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .btn-related {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(245, 245, 245, 0.75);
+      padding: 7px 14px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-related:hover {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+    }
+
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 28px 60px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 13px;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-legal a {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+      text-decoration: none;
+    }
+
+    .footer-legal a:hover {
+      color: rgba(245, 245, 245, 0.85);
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="wholesale.html">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="auth.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>></span>
+    <a href="shop.html">Shop</a>
+    <span>></span>
+    Cornerstone Blend
+  </div>
+
+  <div class="product-main">
+    <div class="product-gallery">
+      <div class="product-badge">House Staple</div>
+      <img src="images/coffee-mockup.png" alt="Coffee Bag">
+    </div>
+
+    <div class="product-info">
+      <div class="product-roast">House Blend</div>
+      <h1 class="product-name">Cornerstone Blend</h1>
+      <div class="product-origin">Multi-Origin · Blend</div>
+      <hr class="divider">
+      <div class="info-label">Tasting Notes</div>
+      <div class="flavor-tags">
+        <div class="flavor-tag">Milk Chocolate</div>
+        <div class="flavor-tag">Stone Fruit</div>
+        <div class="flavor-tag">Nutty</div>
+        <div class="flavor-tag">Balanced</div>
+      </div>
+      <div class="info-label">Roast Intensity</div>
+      <div class="roast-bar">
+        <div class="roast-seg on"></div>
+        <div class="roast-seg on"></div>
+        <div class="roast-seg on"></div>
+        <div class="roast-seg"></div>
+        <div class="roast-seg"></div>
+      </div>
+      <hr class="divider">
+      <div class="info-label">Bag Size</div>
+      <div class="size-opts">
+        <button class="size-btn" onclick="selectSize(this, 40, '1lb')">1lb — $40</button>
+        <button class="size-btn active" onclick="selectSize(this, 55, '5lb')">5lb — $55</button>
+        <button class="size-btn" onclick="selectSize(this, 102, '10lb')">10lb — $102</button>
+      </div>
+      <div class="price-line">
+        <strong id="price-display">$55</strong>
+        <span id="size-display">/ 5lb bag</span>
+      </div>
+      <div class="purchase-row">
+        <div class="qty-wrap">
+          <button class="qty-btn" onclick="changeQty(-1)">&mdash;</button>
+          <div class="qty-num" id="qty-num">1</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-add" id="add-btn" onclick="addToCart()">Add to Order</button>
+      </div>
+      <div class="shipping-note">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="3" width="15" height="13" />
+          <path d="M16 8h4l3 5v3h-7V8z" />
+          <circle cx="5.5" cy="18.5" r="2.5" />
+          <circle cx="18.5" cy="18.5" r="2.5" />
+        </svg>
+        Free shipping on bulk orders over $200
+      </div>
+    </div>
+  </div>
+
+  <div class="product-tabs">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('details', this)">Product Details</button>
+      <button class="tab-btn" onclick="switchTab('brewing', this)">Brewing Guide</button>
+      <button class="tab-btn" onclick="switchTab('reviews', this)">Reviews (42)</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-details">
+      <p>Our signature house blend, crafted to work on every menu and every machine. We combine Ethiopian naturals for
+        fruit-forward brightness with Colombian washed beans for body and balance. The result is a crowd-pleasing cup
+        that holds up under milk, works straight black, and performs consistently across drip, espresso, and batch brew.
+      </p>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Origin</div>
+          <div class="detail-value">Multi-Origin</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Region</div>
+          <div class="detail-value">Ethiopia + Colombia</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Process</div>
+          <div class="detail-value">Washed + Natural</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Roast Level</div>
+          <div class="detail-value">House Blend</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Altitude</div>
+          <div class="detail-value">1,400 &mdash; 2,000m</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Harvest</div>
+          <div class="detail-value">Year-Round</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-brewing">
+      <p>The Cornerstone Blend was designed for versatility. It performs equally well as drip, espresso, or batch brew.
+        For espresso use a 1:2.2 ratio at 93°C. For batch brew, dial to medium grind and 1:15. The blend is forgiving —
+        small grind variations won't break your cup.</p>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Best For</div>
+          <div class="detail-value">All Brew Methods</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Grind</div>
+          <div class="detail-value">Medium</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Water Temp</div>
+          <div class="detail-value">92 &mdash; 94°C</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Ratio</div>
+          <div class="detail-value">1g : 15ml</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Brew Time</div>
+          <div class="detail-value">3 &mdash; 4 min</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Espresso</div>
+          <div class="detail-value">1 : 2.2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-reviews">
+      <p
+        style="color:rgba(245,245,245,0.6);font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px;">
+        4.9 average · 42 reviews</p>
+      <p>"Our go-to for the espresso bar. Works with every milk option we carry." — <strong
+          style="color:var(--white)">Tara N., The Commons</strong></p><br>
+      <p>"Ordered it for drip, ended up using it on everything. Reordering now." — <strong
+          style="color:var(--white)">Derek F., Foxhill Roasters</strong></p><br>
+      <p>"The most consistent bag we've found. Every order the same." — <strong style="color:var(--white)">Amara B.,
+          Salt & Steam</strong></p><br>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <div class="related-header">
+      <div class="related-title">You Might Also Like</div>
+      <a href="shop.html" class="related-link">View All →</a>
+    </div>
+    <div class="related-grid">
+      <div class="related-card" onclick="window.location='product-morning-bloom.html'">
+        <div class="related-card-img"><img src="images/coffee-mockup.png" alt="Coffee Bag"></div>
+        <div class="related-body">
+          <div class="related-roast">Light Roast</div>
+          <div class="related-name">Morning Bloom</div>
+          <div class="related-footer">
+            <div class="related-price">$48 <span>/ 5lb</span></div>
+            <button class="btn-related" onclick="window.location='product-morning-bloom.html'">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="related-card" onclick="window.location='product-everyday-gold.html'">
+        <div class="related-card-img"><img src="images/coffee-mockup.png" alt="Coffee Bag"></div>
+        <div class="related-body">
+          <div class="related-roast">Medium Roast</div>
+          <div class="related-name">Everyday Gold</div>
+          <div class="related-footer">
+            <div class="related-price">$52 <span>/ 5lb</span></div>
+            <button class="btn-related" onclick="window.location='product-everyday-gold.html'">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="related-card" onclick="window.location='product-midnight-press.html'">
+        <div class="related-card-img"><img src="images/coffee-mockup.png" alt="Coffee Bag"></div>
+        <div class="related-body">
+          <div class="related-roast">Dark Roast</div>
+          <div class="related-name">Midnight Press</div>
+          <div class="related-footer">
+            <div class="related-price">$52 <span>/ 5lb</span></div>
+            <button class="btn-related" onclick="window.location='product-midnight-press.html'">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="wholesale.html">Shipping &amp; Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <script>
+    var qty = 1;
+    var currentPrice = 55;
+    var currentSize = '5lb';
+
+    function changeQty(dir) {
+      qty = Math.max(1, qty + dir);
+      document.getElementById('qty-num').textContent = qty;
+    }
+
+    function selectSize(btn, price, size) {
+      var sizeBtns = document.getElementsByClassName('size-btn');
+      for (var i = 0; i < sizeBtns.length; i++) {
+        sizeBtns[i].classList.remove('active');
+      }
+      btn.classList.add('active');
+      currentPrice = price;
+      currentSize = size;
+      document.getElementById('price-display').textContent = '$' + price;
+      document.getElementById('size-display').textContent = '/ ' + size + ' bag';
+    }
+
+    function switchTab(id, btn) {
+      document.getElementById('tab-details').classList.remove('active');
+      document.getElementById('tab-brewing').classList.remove('active');
+      document.getElementById('tab-reviews').classList.remove('active');
+      var tabBtns = document.getElementsByClassName('tab-btn');
+      for (var i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove('active');
+      }
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // add to cart — saves to localStorage so cart.html can read it
+    function addToCart() {
+      var btn = document.getElementById('add-btn');
+      var countEl = document.getElementById('cart-count');
+
+      // build cart item
+      var cartItem = {
+        name: 'Cornerstone Blend',
+        roast: 'House Blend',
+        origin: 'Multi-Origin',
+        size: currentSize,
+        price: currentPrice,
+        qty: qty
+      };
+
+      // load existing cart, check if same product+size already in cart
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var existing = cart.findIndex(function (i) { return i.name === cartItem.name && i.size === cartItem.size; });
+      if (existing !== -1) {
+        cart[existing].qty += qty;
+      } else {
+        cart.push(cartItem);
+      }
+      localStorage.setItem('cc_cart', JSON.stringify(cart));
+
+      // update nav count
+      var totalQty = cart.reduce(function (sum, i) { return sum + i.qty; }, 0);
+      countEl.textContent = totalQty;
+
+      // button feedback
+      btn.textContent = 'Added';
+      btn.style.background = '#333';
+      btn.style.color = '#f5f5f5';
+      setTimeout(function () {
+        btn.textContent = 'Add to Order';
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    }
+
+    // update nav cart count on page load
+    var _cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+    var _qty = _cart.reduce(function (sum, i) { return sum + i.qty; }, 0);
+    document.getElementById('cart-count').textContent = _qty;
+  </script>
+  <script>
+    (function () {
+      var cart = JSON.parse(localStorage.getItem('cc_cart') || '[]');
+      var qty = cart.reduce(function (s, i) { return s + i.qty; }, 0);
+      var el = document.getElementById('cart-count');
+      if (el) el.textContent = qty;
+      if (localStorage.getItem('cc_user')) {
+        var btn = document.getElementById('nav-profile-btn');
+        if (btn) btn.href = 'profile.html';
+      }
+    })();
+  </script>
+</body>
+
+</html>

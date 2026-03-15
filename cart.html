@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Order &ndash; Cornerstone Coffee Co.</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--white-dark);
+    }
+
+    /* NAV */
+    /* BREADCRUMB */
+    /* PAGE HEADER */
+    /* hero section at the top of the cart page
+       tried to match the same style as shop.html and wholesale.html
+       took me a while to get the padding right */
+    .cart-hero {
+      padding: 64px 60px 72px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cart-hero .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .cart-hero .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--white);
+    }
+
+    .cart-hero .hero-eyebrow span {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+    }
+
+    .cart-hero h1 {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 52px;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .cart-hero p {
+      font-size: 13px;
+      color: rgba(245, 245, 245, 0.65);
+      line-height: 1.8;
+      max-width: 520px;
+    }
+
+    /* LAYOUT: items left, summary right */
+    /* main two-column layout — items on left, order summary on right
+       used CSS grid here instead of flexbox so the columns stay fixed */
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      min-height: 60vh;
+      align-items: start;
+    }
+
+    /* LEFT */
+    .cart-items {
+      padding: 36px 60px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* using flexbox here because i couldnt get grid to work with the price column */
+    .cart-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .item-details {
+      flex: 1;
+      /* this makes it take up remaining space */
+    }
+
+    .item-price {
+      min-width: 80px;
+      /* needed this or it would collapse */
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    /* thumbnail image for each cart item
+       originally this was just an emoji placeholder, replaced with real product image */
+    .item-thumb {
+      width: 80px;
+      height: 80px;
+      background: var(--black-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .item-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 8px;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    .item-roast {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 5px;
+    }
+
+    .item-name {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 17px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .item-qty-wrap {
+      display: flex;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .iqty-btn {
+      background: transparent;
+      border: none;
+      color: var(--white);
+      width: 28px;
+      height: 28px;
+      font-size: 14px;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+    }
+
+    .iqty-btn:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .iqty-num {
+      width: 32px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .item-remove {
+      background: none;
+      border: none;
+      color: rgba(245, 245, 245, 0.6);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .item-remove:hover {
+      color: var(--white);
+    }
+
+    .item-price-main {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 18px;
+      color: var(--white);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .item-price-each {
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    /* Empty state */
+    .cart-empty {
+      padding: 80px 60px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cart-empty .empty-icon {
+      font-size: 52px;
+      opacity: 0.1;
+      margin-bottom: 20px;
+    }
+
+    .cart-empty h3 {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .cart-empty p {
+      font-size: 11px;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 28px;
+    }
+
+    .btn-shop {
+      background: var(--white);
+      color: var(--black);
+      padding: 13px 28px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* RIGHT: summary */
+    .order-summary {
+      padding: 36px 36px;
+      background: var(--black-mid);
+      position: sticky;
+      top: 65px;
+      /* nav height */
+    }
+
+    .summary-title {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .summary-row .label {
+      color: rgba(245, 245, 245, 0.75);
+    }
+
+    .summary-row .value {
+      color: var(--white);
+    }
+
+    .summary-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      margin: 18px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .summary-total .label {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .summary-total .value {
+      font-family: 'Hammersmith One', sans-serif;
+      font-size: 24px;
+      color: var(--white);
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      padding: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+
+    .btn-checkout:hover {
+      background: var(--white-dark);
+    }
+
+    .btn-continue {
+      width: 100%;
+      background: transparent;
+      color: rgba(245, 245, 245, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .btn-continue:hover {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Promo code */
+    .promo-wrap {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .promo-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.6);
+      margin-bottom: 10px;
+    }
+
+    .promo-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .promo-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      padding: 10px 14px;
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      outline: none;
+    }
+
+    .promo-input:focus {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .promo-input::placeholder {
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    .promo-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(245, 245, 245, 0.75);
+      padding: 10px 14px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      cursor: pointer;
+    }
+
+    .promo-btn:hover {
+      color: var(--white);
+    }
+
+    /* Trust notes */
+    .trust-notes {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .trust-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    /* FOOTER */
+    /* footer styles from styles.css */
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Cornerstone Coffee Co.</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="wholesale.html">Wholesale</a></li>
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="profile.html" class="nav-icon-btn" id="nav-profile-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </a>
+      <a href="cart.html" class="nav-icon-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#f5f5f5" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <div class="cart-count" id="cart-count">0</div>
+      </a>
+    </div>
+  </nav>
+
+  <div class="cart-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>›</span>Your Order
+    </div>
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span>Wholesale Order</span>
+    </div>
+    <h1>Your Order</h1>
+    <p id="item-summary">Review before placing your wholesale order</p>
+  </div>
+
+  <div class="cart-layout">
+
+    <!-- ITEMS &mdash; rendered dynamically from localStorage -->
+    <div class="cart-items" id="cart-items-list"></div>
+
+    <!-- SUMMARY -->
+    <div class="order-summary">
+      <div class="summary-title">Order Summary</div>
+
+      <div class="summary-row">
+        <span class="label">Subtotal</span>
+        <span class="value" id="subtotal">$0</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping</span>
+        <span class="value" style="color:rgba(245,245,245,0.75)" id="shipping-label">&mdash;</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Wholesale Discount</span>
+        <span class="value" style="color:rgba(245,245,245,0.75)">&mdash;</span>
+      </div>
+
+      <hr class="summary-divider">
+
+      <div class="summary-total">
+        <span class="label">Total</span>
+        <span class="value" id="total">$0</span>
+      </div>
+
+      <button class="btn-checkout" id="checkout-btn" onclick="placeOrder()">Place Order</button>
+      <a href="shop.html" class="btn-continue">&larr; Continue Shopping</a>
+
+      <div class="promo-wrap">
+        <div class="promo-label">Promo Code</div>
+        <div class="promo-row">
+          <input class="promo-input" type="text" id="promo-input" placeholder="Enter code">
+          <button class="promo-btn" onclick="applyPromo()">Apply</button>
+        </div>
+        <div id="promo-msg" style="font-size:10px;margin-top:8px;display:none;"></div>
+      </div>
+
+      <div class="trust-notes">
+        <div class="trust-note">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          Secure checkout
+        </div>
+        <div class="trust-note">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <rect x="1" y="3" width="15" height="13" />
+            <path d="M16 8h4l3 5v3h-7V8z" />
+            <circle cx="5.5" cy="18.5" r="2.5" />
+            <circle cx="18.5" cy="18.5" r="2.5" />
+          </svg>
+          Free shipping over $200
+        </div>
+        <div class="trust-note">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          Roasted fresh within 48hrs
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Cornerstone Coffee Co.</div>
+        <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <ul>
+          <li><a href="shop.html">All Roasts</a></li>
+          <li><a href="shop.html">Light Roast</a></li>
+          <li><a href="shop.html">Medium Roast</a></li>
+          <li><a href="shop.html">Dark Roast</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Wholesale</div>
+        <ul>
+          <li><a href="wholesale.html">Pricing</a></li>
+          <li><a href="wholesale.html">Bulk Orders</a></li>
+          <li><a href="wholesale.html">Get a Sample</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="contact.html">Privacy Policy</a>
+        <a href="wholesale.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // helper function to read the cart from localStorage
+    // returns empty array if nothing is saved yet
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cc_cart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cc_cart', JSON.stringify(cart));
+    }
+
+    // builds the cart item HTML dynamically from whatever is in localStorage
+    // loops through each item and creates a row with image, name, qty controls, and price
+    function renderCart() {
+      var cart = getCart();
+      var container = document.getElementById('cart-items-list');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<div class="cart-empty"><div class="empty-icon">&#9749;</div><h3>Your order is empty</h3><p>Add some products to get started.</p><a href="shop.html" class="btn-shop">Browse Products</a></div>';
+        document.getElementById('checkout-btn').disabled = true;
+        document.getElementById('checkout-btn').style.opacity = '0.4';
+        updateSummary(cart);
+        updateHeader(cart);
+        return;
+      }
+
+      document.getElementById('checkout-btn').disabled = false;
+      document.getElementById('checkout-btn').style.opacity = '1';
+
+      var html = '';
+      cart.forEach(function (item, i) {
+        html += '<div class="cart-item" id="cart-row-' + i + '">';
+        var thumbSrc = item.image || 'images/coffee-mockup.png';
+        html += '  <div class="item-thumb"><img src="' + thumbSrc + '" alt="' + item.name + '"></div>';
+        html += '  <div class="item-details">';
+        html += '    <div class="item-roast">' + (item.roast || '') + '</div>';
+        html += '    <div class="item-name">' + item.name + '</div>';
+        html += '    <div class="item-meta">' + item.size + ' bag &middot; ' + (item.origin || '') + '</div>';
+        html += '    <div class="item-actions">';
+        html += '      <div class="item-qty-wrap">';
+        html += '        <button class="iqty-btn" onclick="updateQty(' + i + ', -1)">−</button>';
+        html += '        <div class="iqty-num" id="qty-' + i + '">' + item.qty + '</div>';
+        html += '        <button class="iqty-btn" onclick="updateQty(' + i + ', 1)">+</button>';
+        html += '      </div>';
+        html += '      <button class="item-remove" onclick="removeItem(' + i + ')">Remove</button>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '  <div class="item-price">';
+        html += '    <span class="item-price-main" id="price-' + i + '">$' + (item.price * item.qty) + '</span>';
+        html += '    <span class="item-price-each">$' + item.price + ' each</span>';
+        html += '  </div>';
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+      updateSummary(cart);
+      updateHeader(cart);
+    }
+
+    function updateSummary(cart) {
+      var sub = 0;
+      var totalQty = 0;
+      cart.forEach(function (item) {
+        sub += item.price * item.qty;
+        totalQty += item.qty;
+      });
+
+      document.getElementById('subtotal').textContent = '$' + sub;
+      document.getElementById('total').textContent = '$' + sub;
+      document.getElementById('cart-count').textContent = totalQty;
+      document.getElementById('shipping-label').textContent = sub >= 200 ? 'Free' : '$15.00';
+    }
+
+    function updateHeader(cart) {
+      var totalQty = cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+      var summary = document.getElementById('item-summary');
+      if (totalQty === 0) {
+        summary.textContent = 'Your order is empty';
+      } else {
+        summary.textContent = totalQty + (totalQty === 1 ? ' item' : ' items') + ' &middot; Review before placing your wholesale order';
+      }
+    }
+
+    // ── QTY + REMOVE ──────────────────────────────────────────
+    function updateQty(index, dir) {
+      var cart = getCart();
+      cart[index].qty = Math.max(1, cart[index].qty + dir);
+      saveCart(cart);
+      renderCart();
+    }
+
+    // removes an item from the cart completely
+    // splices it out of the array and re-saves to localStorage
+    function removeItem(index) {
+      var cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCart();
+    }
+
+    var promoCodes = { 'WELCOME10': 10, 'WHOLESALE5': 5 };
+    var appliedDiscount = 0;
+
+    function applyPromo() {
+      var code = document.getElementById('promo-input').value.trim().toUpperCase();
+      var msgEl = document.getElementById('promo-msg');
+      if (promoCodes[code]) {
+        appliedDiscount = promoCodes[code];
+        msgEl.textContent = '&#10003; ' + appliedDiscount + '% discount applied';
+        msgEl.style.color = '#80c880';
+        msgEl.style.display = 'block';
+        // recalculate with discount
+        var cart = getCart();
+        var sub = cart.reduce(function (sum, i) { return sum + i.price * i.qty; }, 0);
+        var discounted = Math.round(sub * (1 - appliedDiscount / 100));
+        document.getElementById('total').textContent = '$' + discounted;
+      } else {
+        msgEl.textContent = '&#10005; Invalid promo code';
+        msgEl.style.color = '#e07070';
+        msgEl.style.display = 'block';
+      }
+    }
+
+    // ── PLACE ORDER ───────────────────────────────────────────
+    // handles the Place Order button
+    // builds an order object, saves it to the user profile AND to cc_orders for the admin
+    // clears the cart after order is placed
+    function placeOrder() {
+      var cart = getCart();
+      if (cart.length === 0) return;
+
+      var btn = document.getElementById('checkout-btn');
+      btn.textContent = 'Processing...';
+      btn.disabled = true;
+
+      // simulate a short delay like a real checkout
+      setTimeout(function () {
+        var sub = cart.reduce(function (sum, i) { return sum + i.price * i.qty; }, 0);
+        var itemsLabel = cart.map(function (i) { return i.name + ' ' + i.size + ' &times; ' + i.qty; }).join(', ');
+
+        // build the order object that gets saved to localStorage
+        // id is random 4-digit number with # prefix to look like a real order number
+        var newOrder = {
+          id: '#' + (1000 + Math.floor(Math.random() * 9000)),
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+          items: itemsLabel,
+          itemsArray: cart.map(function (i) { return { name: i.name, qty: i.qty }; }),
+          total: sub,
+          status: 'Processing'
+        };
+
+        // save the order to the logged-in user's profile
+        // had to update both cc_users (full list) and cc_user (current session)
+        // otherwise the profile page wouldn't show the new order
+        var userData = localStorage.getItem('cc_user');
+        if (userData) {
+          var user = JSON.parse(userData);
+          if (!user.orders) user.orders = [];
+          user.orders.unshift(newOrder); // add to top
+
+          // update in users array too
+          var users = JSON.parse(localStorage.getItem('cc_users') || '[]');
+          var idx = users.findIndex(function (u) { return u.id === user.id; });
+          if (idx !== -1) { users[idx] = user; }
+          localStorage.setItem('cc_users', JSON.stringify(users));
+          localStorage.setItem('cc_user', JSON.stringify(user));
+        }
+
+        // also write to cc_orders so the admin dashboard can read it
+        // this was a bug I had to fix — orders weren't showing up in admin at first
+        var allOrders = JSON.parse(localStorage.getItem('cc_orders') || '[]');
+        var adminOrder = Object.assign({}, newOrder, {
+          email: (JSON.parse(localStorage.getItem('cc_user') || '{}').email) || 'Guest'
+        });
+        allOrders.unshift(adminOrder);
+        localStorage.setItem('cc_orders', JSON.stringify(allOrders));
+
+        // clear the cart
+        localStorage.removeItem('cc_cart');
+
+        // show success
+        document.querySelector('.cart-layout').innerHTML = '<div style="padding:80px 60px;text-align:center;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:24px;">&#10003;</div><h2 style=\'font-family:Hammersmith One,sans-serif;font-size:28px;text-transform:uppercase;color:var(--white);margin-bottom:10px;\'>Order Placed!</h2><p style=\'font-size:12px;color:rgba(245,245,245,0.55);margin-bottom:8px;\'>Order ' + newOrder.id + ' is being processed.</p><p style=\'font-size:11px;color:rgba(245,245,245,0.4);margin-bottom:32px;\'>You\'ll receive a confirmation shortly. Estimated delivery: 3&ndash;5 business days.</p><a href=\'shop.html\' style=\'background:var(--white);color:var(--black);padding:13px 32px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:Space Mono,monospace;text-decoration:none;display:inline-block;margin-right:12px;\'>Continue Shopping</a><a href=\'profile.html\' style=\'background:transparent;color:rgba(245,245,245,0.7);border:1px solid rgba(255,255,255,0.15);padding:12px 28px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-family:Space Mono,monospace;text-decoration:none;display:inline-block;\'>View My Orders</a></div>';
+        document.getElementById('cart-count').textContent = '0';
+        document.getElementById('item-summary').textContent = 'Order confirmed';
+
+      }, 1200);
+    }
+
+    // update nav cart count on load
+    var initCart = getCart();
+    var initQty = initCart.reduce(function (sum, i) { return sum + i.qty; }, 0);
+    document.getElementById('cart-count').textContent = initQty;
+
+    renderCart();
+  </script>
+
+  <!-- secret admin access &mdash; 5 clicks on footer logo -->
+  <script>
+    (function () {
+      var clicks = 0;
+      var timer = null;
+      document.addEventListener('click', function (e) {
+        var el = e.target;
+        // check if clicked element or its parent is the footer-brand
+        while (el && el !== document.body) {
+          if (el.classList && el.classList.contains('footer-brand')) {
+            clicks++;
+            clearTimeout(timer);
+            timer = setTimeout(function () { clicks = 0; }, 3000);
+            if (clicks >= 5) {
+              clicks = 0;
+              window.location.href = 'admin.html';
+            }
+            break;
+          }
+          el = el.parentElement;
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
