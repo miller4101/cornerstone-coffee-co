@@ -579,11 +579,13 @@
                     const advanceBtn = isDelivered
                         ? '<span style="font-size:10px;color:#80c880;">&#10003; Delivered</span>'
                         : `<button class="btn-advance-admin" onclick="adminAdvanceOrder('${o.id}')">&rarr; ${advanceLabel}</button>`;
+                    const shipping = o.shippingAddress || '&mdash;';
                     return `<tr>
             <td>${o.id || '&mdash;'}</td>
             <td>${o.email || o.user || '&mdash;'}</td>
             <td>${items}</td>
             <td>$${totalNum.toFixed(2)}</td>
+            <td>${shipping}</td>
             <td>${date}</td>
             <td><span class="badge ${badgeClass}">${status}</span></td>
             <td>${advanceBtn}</td>
@@ -591,7 +593,7 @@
                 }).join('');
                 ordersContainer.innerHTML = `<table class="admin-table">
           <thead><tr>
-            <th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th><th>Status</th><th>Action</th>
+            <th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Ship To</th><th>Date</th><th>Status</th><th>Action</th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>`;
