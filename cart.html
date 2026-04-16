@@ -30,12 +30,6 @@
       background: var(--white-dark);
     }
 
-    /* NAV */
-    /* BREADCRUMB */
-    /* PAGE HEADER */
-    /* hero section at the top of the cart page
-       tried to match the same style as shop.html and wholesale.html
-       took me a while to get the padding right */
     .cart-hero {
       padding: 64px 60px 72px;
       background: var(--black);
@@ -354,6 +348,138 @@
       background: var(--white-dark);
     }
 
+    .checkout-section {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .checkout-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 14px;
+    }
+
+    .checkout-field {
+      margin-bottom: 10px;
+    }
+
+    .checkout-field label {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 5px;
+    }
+
+    .checkout-field input {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .checkout-field input:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .checkout-field input::placeholder {
+      color: rgba(245, 245, 245, 0.18);
+    }
+
+    .checkout-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .checkout-error {
+      font-size: 9px;
+      color: #e07070;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .checkout-error.show {
+      display: block;
+    }
+
+    .checkout-section {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .checkout-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.5);
+      margin-bottom: 14px;
+    }
+
+    .checkout-field {
+      margin-bottom: 10px;
+    }
+
+    .checkout-field label {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.4);
+      margin-bottom: 5px;
+    }
+
+    .checkout-field input {
+      width: 100%;
+      background: var(--black-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .checkout-field input:focus {
+      border-color: rgba(245, 245, 245, 0.3);
+    }
+
+    .checkout-field input::placeholder {
+      color: rgba(245, 245, 245, 0.18);
+    }
+
+    .checkout-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .checkout-error {
+      font-size: 9px;
+      color: #e07070;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .checkout-error.show {
+      display: block;
+    }
+
     .btn-continue {
       width: 100%;
       background: transparent;
@@ -485,7 +611,6 @@
       <a href="index.html">Home</a><span>›</span>Your Order
     </div>
     <div class="hero-eyebrow">
-      <div class="hero-dot"></div>
       <span>Wholesale Order</span>
     </div>
     <h1>Your Order</h1>
@@ -521,7 +646,54 @@
         <span class="value" id="total">$0</span>
       </div>
 
-      <button class="btn-checkout" id="checkout-btn" onclick="placeOrder()">Place Order</button>
+      <!-- SHIPPING ADDRESS -->
+      <div class="checkout-section">
+        <div class="checkout-section-title">Shipping Address</div>
+        <div class="checkout-field">
+          <label>Street Address</label>
+          <input type="text" id="ship-street" placeholder="123 Main St">
+        </div>
+        <div class="checkout-row">
+          <div class="checkout-field">
+            <label>City</label>
+            <input type="text" id="ship-city" placeholder="Chicago">
+          </div>
+          <div class="checkout-field">
+            <label>State</label>
+            <input type="text" id="ship-state" placeholder="IL">
+          </div>
+        </div>
+        <div class="checkout-field">
+          <label>Zip Code</label>
+          <input type="text" id="ship-zip" placeholder="60601">
+        </div>
+      </div>
+
+      <!-- PAYMENT INFO -->
+      <div class="checkout-section">
+        <div class="checkout-section-title">Payment Information</div>
+        <div class="checkout-field">
+          <label>Cardholder Name</label>
+          <input type="text" id="pay-name" placeholder="Jane Smith">
+        </div>
+        <div class="checkout-field">
+          <label>Card Number</label>
+          <input type="text" id="pay-card" placeholder="1234 5678 9012 3456" maxlength="19">
+        </div>
+        <div class="checkout-row">
+          <div class="checkout-field">
+            <label>Expiration Date</label>
+            <input type="text" id="pay-exp" placeholder="MM/YY" maxlength="5">
+          </div>
+          <div class="checkout-field">
+            <label>CVV</label>
+            <input type="text" id="pay-cvv" placeholder="123" maxlength="3">
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-error" id="checkout-error">Please fill in all shipping and payment fields.</div>
+      <button class="btn-checkout" id="checkout-btn" onclick="placeOrder()">Place Order &rarr;</button>
       <a href="shop.html" class="btn-continue">&larr; Continue Shopping</a>
 
       <div class="promo-wrap">
@@ -561,43 +733,38 @@
 
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-top">
       <div>
         <div class="footer-brand">Cornerstone Coffee Co.</div>
         <p class="footer-tagline">The bean behind your best cup.<br>Wholesale coffee built for small cafe owners.</p>
       </div>
-
       <div class="footer-col">
         <div class="footer-col-title">Shop</div>
         <ul>
           <li><a href="shop.html">All Roasts</a></li>
           <li><a href="shop.html">Light Roast</a></li>
-          <li><a href="shop.html">Medium Roast</a></li>
           <li><a href="shop.html">Dark Roast</a></li>
+          <li><a href="shop.html">Decaf</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <div class="footer-col-title">Wholesale</div>
         <ul>
+          <li><a href="wholesale.html">Partner Program</a></li>
           <li><a href="wholesale.html">Pricing</a></li>
-          <li><a href="wholesale.html">Bulk Orders</a></li>
-          <li><a href="wholesale.html">Get a Sample</a></li>
+          <li><a href="wholesale.html">Apply Now</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <div class="footer-col-title">Support</div>
         <ul>
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="#">Shipping & Returns</a></li>
-          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="cart.html">Your Order</a></li>
         </ul>
       </div>
     </div>
-
     <div class="footer-bottom">
       <span class="footer-copy">© 2026 Cornerstone Coffee Co. All rights reserved.</span>
       <div class="footer-legal">
@@ -608,6 +775,7 @@
   </footer>
 
   <script>
+    // ── CART HELPERS ──────────────────────────────────────────
     // helper function to read the cart from localStorage
     // returns empty array if nothing is saved yet
     function getCart() {
@@ -617,6 +785,7 @@
       localStorage.setItem('cc_cart', JSON.stringify(cart));
     }
 
+    // ── RENDER ────────────────────────────────────────────────
     // builds the cart item HTML dynamically from whatever is in localStorage
     // loops through each item and creates a row with image, name, qty controls, and price
     function renderCart() {
@@ -706,6 +875,7 @@
       renderCart();
     }
 
+    // ── PROMO CODE ────────────────────────────────────────────
     var promoCodes = { 'WELCOME10': 10, 'WHOLESALE5': 5 };
     var appliedDiscount = 0;
 
@@ -731,11 +901,34 @@
 
     // ── PLACE ORDER ───────────────────────────────────────────
     // handles the Place Order button
+    // validates shipping and payment fields first
     // builds an order object, saves it to the user profile AND to cc_orders for the admin
     // clears the cart after order is placed
     function placeOrder() {
       var cart = getCart();
       if (cart.length === 0) return;
+
+      // validate shipping fields
+      var street = document.getElementById('ship-street').value.trim();
+      var city = document.getElementById('ship-city').value.trim();
+      var state = document.getElementById('ship-state').value.trim();
+      var zip = document.getElementById('ship-zip').value.trim();
+
+      // validate payment fields
+      var payName = document.getElementById('pay-name').value.trim();
+      var payCard = document.getElementById('pay-card').value.trim();
+      var payExp = document.getElementById('pay-exp').value.trim();
+      var payCvv = document.getElementById('pay-cvv').value.trim();
+
+      var errorEl = document.getElementById('checkout-error');
+
+      if (!street || !city || !state || !zip || !payName || !payCard || !payExp || !payCvv) {
+        errorEl.classList.add('show');
+        return;
+      }
+      errorEl.classList.remove('show');
+
+      var shippingAddress = street + ', ' + city + ', ' + state + ' ' + zip;
 
       var btn = document.getElementById('checkout-btn');
       btn.textContent = 'Processing...';
@@ -754,7 +947,8 @@
           items: itemsLabel,
           itemsArray: cart.map(function (i) { return { name: i.name, qty: i.qty }; }),
           total: sub,
-          status: 'Processing'
+          status: 'Processing',
+          shippingAddress: shippingAddress
         };
 
         // save the order to the logged-in user's profile
@@ -794,6 +988,7 @@
       }, 1200);
     }
 
+    // ── INIT ──────────────────────────────────────────────────
     // update nav cart count on load
     var initCart = getCart();
     var initQty = initCart.reduce(function (sum, i) { return sum + i.qty; }, 0);
@@ -825,6 +1020,26 @@
         }
       });
     })();
+  </script>
+  <script>
+    // auto format card number and expiry date as user types
+    document.addEventListener('DOMContentLoaded', function () {
+      var cardEl = document.getElementById('pay-card');
+      if (cardEl) {
+        cardEl.addEventListener('input', function () {
+          var v = this.value.replace(/[^0-9]/g, '').substring(0, 16);
+          this.value = v.replace(/(.{4})/g, '$1 ').trim();
+        });
+      }
+      var expEl = document.getElementById('pay-exp');
+      if (expEl) {
+        expEl.addEventListener('input', function () {
+          var v = this.value.replace(/[^0-9]/g, '').substring(0, 4);
+          if (v.length >= 3) v = v.substring(0, 2) + '/' + v.substring(2);
+          this.value = v;
+        });
+      }
+    });
   </script>
 </body>
 
