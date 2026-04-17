@@ -329,7 +329,7 @@
 
     // handles new account creation
     // validates all fields, checks for duplicate emails, then saves new user to localStorage
-    // also seeds two sample past orders so the profile page doesn't look empty on first login
+    // new accounts start with an empty order history
     function handleSignup() {
       var first = document.getElementById('signup-first').value.trim();
       var last = document.getElementById('signup-last').value.trim();
@@ -367,11 +367,7 @@
         password: password,
         tier: 'Starter',
         joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-        orders: [
-          // seed a sample order so profile doesn't look empty
-          { id: '#1001', date: 'Feb 14, 2026', items: 'Everyday Gold 5lb &times; 2', total: '$104.00', status: 'Delivered' },
-          { id: '#1002', date: 'Jan 28, 2026', items: 'Morning Bloom 5lb &times; 1', total: '$48.00', status: 'Delivered' }
-        ]
+        orders: []
       };
 
       users.push(newUser);
