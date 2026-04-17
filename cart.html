@@ -30,6 +30,12 @@
       background: var(--white-dark);
     }
 
+    /* NAV */
+    /* BREADCRUMB */
+    /* PAGE HEADER */
+    /* hero section at the top of the cart page
+       tried to match the same style as shop.html and wholesale.html
+       took me a while to get the padding right */
     .cart-hero {
       padding: 64px 60px 72px;
       background: var(--black);
@@ -719,7 +725,7 @@
             <circle cx="5.5" cy="18.5" r="2.5" />
             <circle cx="18.5" cy="18.5" r="2.5" />
           </svg>
-          Free shipping over $200
+          Free shipping on orders $100 and over
         </div>
         <div class="trust-note">
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -842,10 +848,12 @@
         totalQty += item.qty;
       });
 
-      document.getElementById('subtotal').textContent = '$' + sub;
-      document.getElementById('total').textContent = '$' + sub;
+      var shipping = sub >= 100 ? 0 : 15;
+      var grandTotal = sub + shipping;
+      document.getElementById('subtotal').textContent = '$' + sub.toFixed(2);
+      document.getElementById('shipping-label').textContent = shipping === 0 ? 'Free' : '$15.00';
+      document.getElementById('total').textContent = '$' + grandTotal.toFixed(2);
       document.getElementById('cart-count').textContent = totalQty;
-      document.getElementById('shipping-label').textContent = sub >= 200 ? 'Free' : '$15.00';
     }
 
     function updateHeader(cart) {
@@ -854,7 +862,7 @@
       if (totalQty === 0) {
         summary.textContent = 'Your order is empty';
       } else {
-        summary.textContent = totalQty + (totalQty === 1 ? ' item' : ' items') + ' &middot; Review before placing your wholesale order';
+        summary.innerHTML = totalQty + (totalQty === 1 ? ' item' : ' items') + ' &middot; Review before placing your wholesale order';
       }
     }
 
@@ -946,7 +954,8 @@
           date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
           items: itemsLabel,
           itemsArray: cart.map(function (i) { return { name: i.name, qty: i.qty }; }),
-          total: sub,
+          shipping: sub >= 100 ? 0 : 15,
+          total: sub >= 100 ? sub : sub + 15,
           status: 'Processing',
           shippingAddress: shippingAddress
         };
